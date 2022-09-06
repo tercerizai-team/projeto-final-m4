@@ -849,7 +849,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 #
 
-<h2 align ='center'> Editando schedule </h2>
+<h2 align ='center'> Apagando schedule </h2>
 
 #
 
