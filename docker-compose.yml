@@ -7,10 +7,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=db
-      - DB_PASSWORD=1234
-      - DB=e5
-      - DB_USER=kenzinho
+      - DATABASE_URL=postgres://kenzinho:1234@db:5432/e5
       - SECRET_KEY=sua_chave_secreta
     depends_on:
       db:
