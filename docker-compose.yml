@@ -7,10 +7,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=db
-      - DB_PASSWORD=1234
-      - DB=e5
-      - DB_USER=kenzinho
+      - DB_URL="postgres://mateus:1234@localhost:5432/e5"
       - SECRET_KEY=sua_chave_secreta
     depends_on:
       db:
