@@ -42,5 +42,11 @@ export class Users {
 
     @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.userId, { eager: true })
     feedbacks: UsersFeedbacks[]
+    
+    constructor() {
+        if (!this.id) {
+            this.id = uuid()
+        }
+    }
 
 }
