@@ -6,7 +6,7 @@ import { UsersFeedbacks } from "./users_feedbacks.entity";
 import { v4 as uuid } from "uuid"
 
 
-@Entity("providers")
+@Entity("users")
 export class Users {
 
     @PrimaryGeneratedColumn("uuid")
@@ -24,10 +24,10 @@ export class Users {
     @Column()
     phone: string
 
-    @Column()
+    @Column({ default: true })
     isActive: boolean
 
-    @Column()
+    @Column({ default: false })
     isAdm: boolean
 
     @CreateDateColumn()
