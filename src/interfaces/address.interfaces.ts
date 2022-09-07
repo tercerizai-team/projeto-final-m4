@@ -1,5 +1,3 @@
-
-
 export interface IAdressRequest {
     state: string
     city: string
