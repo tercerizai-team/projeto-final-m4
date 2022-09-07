@@ -6,6 +6,5 @@ export interface IUserRequest {
     email: string
     password: string
     phone: string
-    isAdm: boolean
-    // address: IAdressRequest
+    address: IAdressRequest
 }
