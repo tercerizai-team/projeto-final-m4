@@ -1,38 +1,52 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Addresses } from "./addresses.entity";
+import { AddressesUsers } from "./addresses_users.entity";
+import { Schedules } from "./schedules.entity";
+import { UsersFeedbacks } from "./users_feedbacks.entity";
 
-@Entity("users")
-export class User {
-    @PrimaryColumn("uuid")
-    id: string;
+@Entity("providers")
+export class Users {
 
-    @Column({ length: 45 })
-    name: string;
-
-    @Column({ length: 90 })
-    email: string;
-
-    @Column({ length: 90 })
-    password: string;
-
-    @Column({ length: 11 })
-    phone: string;
-
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    updatedAt: Date;
-
-    @Column({ default: true })
-    isActive: boolean;
+    @PrimaryGeneratedColumn("uuid")
+    id: string
 
     @Column()
-    isAdm: boolean;
+    name: string
 
+    @Column()
+    email: string
+
+    @Column()
+    password: string
+
+    @Column()
+    phone: string
+
+    @Column()
+    isActive: boolean
+
+    @Column()
+    isAdm: boolean
+
+    @CreateDateColumn()
+    createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
+
+    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.userId)
+    addresses: Addresses[]
+
+    @OneToMany(() => Schedules, schedules => schedules.user, { eager: true })
+    schedules: Schedules[]
+
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.userId, { eager: true })
+    feedbacks: UsersFeedbacks[]
+    
     constructor() {
         if (!this.id) {
             this.id = uuid()
         }
     }
+
 }

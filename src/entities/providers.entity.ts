@@ -1,7 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { Addresses } from "./addresses.entity";
+import { Categories } from "./categories.entity";
+import { CategoryProvider } from "./category_provider.entity";
+import { ProviderSchedule } from "./provider_schedule.entity";
+import { Schedules } from "./schedules.entity";
+import { ServicesFeedbacks } from "./services_feedbacks.entity";
 
 @Entity("providers")
-
 export class Providers {
 
     @PrimaryGeneratedColumn("uuid")
@@ -30,4 +35,20 @@ export class Providers {
 
     @UpdateDateColumn()
     updatedAt: Date
+
+    @OneToOne(() => Addresses, { eager: true }) @JoinColumn()
+    address: Addresses
+
+    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.providerId, { eager: true })
+    categories: Categories[]
+
+    @OneToOne(() => ProviderSchedule, { eager: true, nullable: true }) @JoinColumn()
+    providerSchedule: ProviderSchedule
+
+    @OneToMany(() => Schedules, schedules => schedules.provider, { eager: true })
+    schedules: Schedules[]
+
+    @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.providerId, { eager: true })
+    feedbacks: ServicesFeedbacks[]
+
 }
