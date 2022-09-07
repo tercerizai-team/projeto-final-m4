@@ -1,11 +1,11 @@
-import { User } from "../../entities/users.entity";
+import { Users } from "../../entities/users.entity";
 import { IUserRequest } from "../../interfaces/users.interfaces"
 import AppDataSource from "../../data-source";
 import { hash } from "bcryptjs";
 import { AppError } from "../../errors/AppError";
 
 export const createUserService = async ({name, email, password, phone, isAdm}: IUserRequest) => {
-    const userRepository = AppDataSource.getRepository(User)
+    const userRepository = AppDataSource.getRepository(Users)
     const users = await userRepository.find()
     const emailAlreadyExists = users.find(user => user.email === email)
 
@@ -13,7 +13,7 @@ export const createUserService = async ({name, email, password, phone, isAdm}: I
         throw new AppError(400, 'Email already being used')
     }
 
-    const user = new User()
+    const user = new Users()
     user.name = name
     user.email = email
     user.password = await hash(password, 10)

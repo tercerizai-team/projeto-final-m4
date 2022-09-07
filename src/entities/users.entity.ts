@@ -3,6 +3,8 @@ import { Addresses } from "./addresses.entity";
 import { AddressesUsers } from "./addresses_users.entity";
 import { Schedules } from "./schedules.entity";
 import { UsersFeedbacks } from "./users_feedbacks.entity";
+import { v4 as uuid } from "uuid"
+
 
 @Entity("providers")
 export class Users {
