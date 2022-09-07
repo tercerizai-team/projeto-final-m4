@@ -5,7 +5,7 @@ export const isAdmMiddleware = async (req: Request, res: Response, next: NextFun
     const userIsAdm = req.userIsAdm
 
     if (userIsAdm === false) {
-        throw new AppError('Access denied', 403)
+        throw new AppError('Access denied', 401)
     }
 
     next()
