@@ -4,6 +4,7 @@ import express from "express";
 import usersRoutes from "./routes/users.routes";
 import sessionRoutes from "./routes/session.routes"
 import providersRoutes from "./routes/providers.routes"
+import categoriesRoutes from "./routes/categories.routes";
 import { handleErrorMiddleware } from "./middlewares/errors.middleware";
 
 
@@ -13,6 +14,7 @@ app.use(express.json())
 app.use("/users", usersRoutes)
 app.use("/login", sessionRoutes)
 app.use("/providers", providersRoutes)
+app.use("/categories", categoriesRoutes)
 
 app.use(handleErrorMiddleware)
 
