@@ -6,6 +6,7 @@ import sessionRoutes from "./routes/session.routes"
 import providersRoutes from "./routes/providers.routes"
 import categoriesRoutes from "./routes/categories.routes";
 import { handleErrorMiddleware } from "./middlewares/errors.middleware";
+import addressesRoutes from "./routes/addresses.routes";
 
 
 const app = express()
@@ -13,6 +14,7 @@ app.use(express.json())
 
 app.use("/users", usersRoutes)
 app.use("/login", sessionRoutes)
+app.use("/address", addressesRoutes)
 app.use("/providers", providersRoutes)
 app.use("/categories", categoriesRoutes)
 
