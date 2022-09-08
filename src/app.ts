@@ -4,7 +4,7 @@ import express from "express";
 import usersRoutes from "./routes/users.routes";
 import sessionRoutes from "./routes/session.routes";
 import { handleErrorMiddleware } from "./middlewares/errors.middleware";
-import providerRoutes from "./routes/provider.routes";
+import providersRoutes from "./routes/provider.routes";
 import usersFeedbacksRoutes from "./routes/usersFeedbacks.routes";
 import addressesRoutes from "./routes/addresses.routes";
 import categoriesRoutes from "./routes/categories.routes";
