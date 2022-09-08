@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { UsersFeedbacks } from "../../entities/users_feedbacks.entity";
 import createUserFeedbackService from "../../services/usersFeedbacks/createUserFeedback.service";
 
 export const createUserFeedbackController = async (
