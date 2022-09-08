@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { updateProviderService } from "../../services/providers/updateProvider.service";
+import { updateProviderService } from "../../services/providers/updateProvider.services";
 
 export const updateProviderController = async (req: Request, res: Response) => {
   const providerData = req.body;

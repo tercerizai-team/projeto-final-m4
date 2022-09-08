@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteProviderService } from "../../services/providers/deleteProvider.service";
+import { deleteProviderService } from "../../services/providers/deleteProvider.services";
 
 export const deleteProviderController = async (req: Request, res: Response) => {
   const id = req.params.id;
