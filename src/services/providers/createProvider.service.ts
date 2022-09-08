@@ -22,7 +22,7 @@ export const createProviderService = async ({
   });
 
   const userAddress = await addressRepository.findOne({
-    where: { cep: address.zipCode },
+    where: { zipCode: address.zipCode },
   });
 
   if (providerAlreadyExists) {
