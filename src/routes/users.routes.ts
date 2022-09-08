@@ -11,7 +11,7 @@ const usersRoutes = Router()
 
 usersRoutes.post("", createUserController)
 usersRoutes.get("", authUserMiddleware, isAdmMiddleware, listUsersController)
-usersRoutes.get("/:id", authUserMiddleware, isAdmMiddleware, getUserController)
+usersRoutes.get("/:id", authUserMiddleware, isTheOwnerOrAdmMiddleware, getUserController)
 usersRoutes.delete("/:id", authUserMiddleware, isTheOwnerOrAdmMiddleware, softDeleteUserController)
 
 export default usersRoutes
