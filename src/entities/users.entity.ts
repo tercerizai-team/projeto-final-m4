@@ -36,13 +36,13 @@ export class Users {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.userId)
+    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.user)
     addresses: Addresses[]
 
     @OneToMany(() => Schedules, schedules => schedules.user, { eager: true })
     schedules: Schedules[]
 
-    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.userId, { eager: true })
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.user, { eager: true })
     feedbacks: UsersFeedbacks[]
     
     constructor() {

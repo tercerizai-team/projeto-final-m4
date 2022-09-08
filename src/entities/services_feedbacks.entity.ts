@@ -17,12 +17,12 @@ export class ServicesFeedbacks {
     comment: string
 
     @OneToOne(() => Users) @JoinColumn()
-    userId: Users
+    user: Users
 
     @OneToOne(() => Services) @JoinColumn()
-    serviceId: Services
+    service: Services
 
     @ManyToOne(() => Providers)
-    providerId: Providers
+    provider: Providers
 
 }

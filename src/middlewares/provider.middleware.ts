@@ -16,7 +16,7 @@ export const providerMiddleware = async (
     address;
 
   const addressAlreadyExists = await addressRepository.findOne({
-    where: { cep: zipCode },
+    where: { zipCode: zipCode },
   });
 
   if (addressAlreadyExists) {
@@ -24,7 +24,7 @@ export const providerMiddleware = async (
   }
 
   const newAddress = new Addresses();
-  newAddress.cep = zipCode;
+  newAddress.zipCode = zipCode;
   newAddress.city = city;
   newAddress.complement = complement;
   newAddress.number = number;

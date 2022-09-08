@@ -16,9 +16,9 @@ export class UsersFeedbacks {
     comment: string
 
     @OneToOne(() => Providers) @JoinColumn()
-    providerId: Providers
+    provider: Providers
 
     @ManyToOne(() => Users)
-    userId: Users
+    user: Users
 
 }
