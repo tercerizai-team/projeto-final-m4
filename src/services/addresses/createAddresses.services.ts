@@ -51,7 +51,6 @@ const createAddressesService = async (
       user: user,
     };
 
-    console.log("-------------------", newPivotAddress)
     const streetAlreadyExists = address.find(
       (address) => address.street === street
     );
