@@ -4,6 +4,7 @@ import { AddressesUsers } from "./addresses_users.entity";
 import { Schedules } from "./schedules.entity";
 import { UsersFeedbacks } from "./users_feedbacks.entity";
 import { v4 as uuid } from "uuid"
+import { ServicesFeedbacks } from "./services_feedbacks.entity";
 
 
 @Entity("users")
@@ -36,14 +37,17 @@ export class Users {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.userId)
+    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.user)
     addresses: Addresses[]
 
     @OneToMany(() => Schedules, schedules => schedules.user, { eager: true })
     schedules: Schedules[]
 
-    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.userId, { eager: true })
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.user, { eager: true })
     feedbacks: UsersFeedbacks[]
+
+    @OneToMany(() => ServicesFeedbacks, serviceFeedbacks => serviceFeedbacks.service)
+    givedfeedbacks: ServicesFeedbacks[]
     
     constructor() {
         if (!this.id) {

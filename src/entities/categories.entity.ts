@@ -12,7 +12,7 @@ export class Categories {
     @Column()
     name: string
 
-    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.categoryId, { eager: true })
+    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.category, { eager: true })
     providers: Providers[]
 
 }

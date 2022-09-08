@@ -5,6 +5,7 @@ import { CategoryProvider } from "./category_provider.entity";
 import { ProviderSchedule } from "./provider_schedule.entity";
 import { Schedules } from "./schedules.entity";
 import { ServicesFeedbacks } from "./services_feedbacks.entity";
+import { UsersFeedbacks } from "./users_feedbacks.entity";
 
 @Entity("providers")
 export class Providers {
@@ -39,7 +40,7 @@ export class Providers {
     @OneToOne(() => Addresses, { eager: true }) @JoinColumn()
     address: Addresses
 
-    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.providerId, { eager: true })
+    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.provider, { eager: true })
     categories: Categories[]
 
     @OneToOne(() => ProviderSchedule, { eager: true, nullable: true }) @JoinColumn()
@@ -48,7 +49,10 @@ export class Providers {
     @OneToMany(() => Schedules, schedules => schedules.provider, { eager: true })
     schedules: Schedules[]
 
-    @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.providerId, { eager: true })
+    @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.provider, { eager: true })
     feedbacks: ServicesFeedbacks[]
+
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.provider)
+    givedFeedbacks: UsersFeedbacks[]
 
 }

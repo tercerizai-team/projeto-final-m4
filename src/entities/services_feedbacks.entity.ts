@@ -25,10 +25,14 @@ export class ServicesFeedbacks {
   @JoinColumn()
   userId: Users;
 
+  @OneToOne(() => Users)
+  @JoinColumn()
+  user: Users;
+
   @OneToOne(() => Services)
   @JoinColumn()
-  serviceId: Services;
+  service: Services;
 
   @ManyToOne(() => Providers)
-  providerId: Providers;
+  provider: Providers;
 }

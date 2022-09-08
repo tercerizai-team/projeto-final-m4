@@ -15,10 +15,10 @@ export class UsersFeedbacks {
     @Column({ length: 256 })
     comment: string
 
-    @OneToOne(() => Providers) @JoinColumn()
-    providerId: Providers
+    @ManyToOne(() => Providers)
+    provider: Providers
 
     @ManyToOne(() => Users)
-    userId: Users
+    user: Users
 
 }

@@ -8,7 +8,7 @@ export const isTheOwnerOrAdmMiddleware = async (req: Request, res: Response, nex
         throw new AppError('Missing id value', 400)
     }
 
-    if (id !== req.userId || req.userIsAdm === false) {
+    if (id !== req.userId && req.userIsAdm === false) {
         throw new AppError('You are not the owner id or admin to access', 401)
     }
 

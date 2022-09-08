@@ -10,9 +10,9 @@ export class AddressesUsers {
     id: string
 
     @ManyToOne(() => Addresses)
-    addressId: Addresses
+    address: Addresses
 
     @ManyToOne(() => Users)
-    userId: Users
+    user: Users
 
 }

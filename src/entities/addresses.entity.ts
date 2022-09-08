@@ -30,7 +30,7 @@ export class Addresses {
     @Column({ length: 45, nullable: true })
     complement: string
 
-    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.addressId)
+    @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.address)
     user: Users
 
 }
