@@ -4,8 +4,8 @@ import express from "express";
 import usersRoutes from "./routes/users.routes";
 import sessionRoutes from "./routes/session.routes";
 import { handleErrorMiddleware } from "./middlewares/errors.middleware";
+import providerRoutes from "./routes/provider.routes";
 import usersFeedbacksRoutes from "./routes/usersFeedbacks.routes";
-import providersRouter from "./routes/providers.routes";
 import addressesRoutes from "./routes/addresses.routes";
 import categoriesRoutes from "./routes/categories.routes";
 
@@ -20,7 +20,6 @@ app.use("/providers", providersRoutes)
 app.use("/categories", categoriesRoutes)
 
 app.use(handleErrorMiddleware);
-
 
 
 export default app;
