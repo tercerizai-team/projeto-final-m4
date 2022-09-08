@@ -43,10 +43,10 @@ export class Users {
     @OneToMany(() => Schedules, schedules => schedules.user, { eager: true })
     schedules: Schedules[]
 
-    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.userId, { eager: true })
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.user, { eager: true })
     feedbacks: UsersFeedbacks[]
 
-    @OneToMany(() => ServicesFeedbacks, serviceFeedbacks => serviceFeedbacks.serviceId)
+    @OneToMany(() => ServicesFeedbacks, serviceFeedbacks => serviceFeedbacks.service)
     givedfeedbacks: ServicesFeedbacks[]
     
     constructor() {

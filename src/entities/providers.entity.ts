@@ -40,7 +40,7 @@ export class Providers {
     @OneToOne(() => Addresses, { eager: true }) @JoinColumn()
     address: Addresses
 
-    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.providerId, { eager: true })
+    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.provider, { eager: true })
     categories: Categories[]
 
     @OneToOne(() => ProviderSchedule, { eager: true, nullable: true }) @JoinColumn()
@@ -49,10 +49,10 @@ export class Providers {
     @OneToMany(() => Schedules, schedules => schedules.provider, { eager: true })
     schedules: Schedules[]
 
-    @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.providerId, { eager: true })
+    @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.provider, { eager: true })
     feedbacks: ServicesFeedbacks[]
 
-    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.providerId)
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.provider)
     givedFeedbacks: UsersFeedbacks[]
 
 }

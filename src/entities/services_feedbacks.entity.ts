@@ -16,14 +16,14 @@ export class ServicesFeedbacks {
     @Column({ length: 256 })
     comment: string
 
-    @ManyToOne(() => Users)
-    userId: Users
+    @OneToOne(() => Users) @JoinColumn()
+    user: Users
 
-    @ManyToOne(() => Services)
-    serviceId: Services
+    @OneToOne(() => Services) @JoinColumn()
+    service: Services
 
     @ManyToOne(() => Providers)
-    providerId: Providers
+    provider: Providers
 
 
 

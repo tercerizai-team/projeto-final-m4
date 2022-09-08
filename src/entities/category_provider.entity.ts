@@ -9,9 +9,9 @@ export class CategoryProvider {
     id: string
 
     @ManyToOne(() => Providers)
-    providerId: Providers
+    provider: Providers
 
     @ManyToOne(() => Categories)
-    categoryId: Categories
+    category: Categories
 
 }
