@@ -11,6 +11,6 @@ const categoriesRoutes = Router()
 categoriesRoutes.post("", authUserMiddleware, isAdmMiddleware, createCategoryController)
 categoriesRoutes.get("", listCategoriesController)
 categoriesRoutes.delete("/:id", authUserMiddleware, isAdmMiddleware, deleteCategoryController)
-categoriesRoutes.patch("/:id", editCategoryController)
+categoriesRoutes.patch("/:id", authUserMiddleware, isAdmMiddleware, editCategoryController)
 
 export default categoriesRoutes
