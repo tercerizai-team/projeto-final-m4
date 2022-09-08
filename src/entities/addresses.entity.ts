@@ -16,7 +16,7 @@ export class Addresses {
     city: string
 
     @Column({ length: 8 })
-    cep: string
+    zipCode: string
 
     @Column({ length: 8 })
     number: string
