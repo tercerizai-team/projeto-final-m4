@@ -5,6 +5,7 @@ import { CategoryProvider } from "./category_provider.entity";
 import { ProviderSchedule } from "./provider_schedule.entity";
 import { Schedules } from "./schedules.entity";
 import { ServicesFeedbacks } from "./services_feedbacks.entity";
+import { UsersFeedbacks } from "./users_feedbacks.entity";
 
 @Entity("providers")
 export class Providers {
@@ -50,5 +51,8 @@ export class Providers {
 
     @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.provider, { eager: true })
     feedbacks: ServicesFeedbacks[]
+
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.providerId)
+    givedFeedbacks: UsersFeedbacks[]
 
 }
