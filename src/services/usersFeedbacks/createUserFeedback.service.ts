@@ -22,11 +22,11 @@ const createUserFeedbackService = async (
 
   const provider = await providersRepository.findOneBy({ id: providerId });
 
-  const feedback = usersFeedbacksRepository.save({
+  const feedback = await usersFeedbacksRepository.save({
     note,
     comment,
     user,
-    provider,
+    provider: provider!
   });
 
   return feedback;

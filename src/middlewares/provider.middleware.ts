@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import AppError from "../errors/AppError";
 import { Addresses } from "../entities/addresses.entity";
 import AppDataSource from "../data-source";
+import { IAdressRequest } from "../interfaces/address.interfaces";
 
 export const providerMiddleware = async (
   req: Request,
@@ -12,11 +13,11 @@ export const providerMiddleware = async (
 
   const address = req.body.address;
 
-  const { state, street, district, number, complement, city, zipCode } =
+  const { state, street, district, number, complement, city, zipCode }: IAdressRequest =
     address;
 
   const addressAlreadyExists = await addressRepository.findOne({
-    where: { cep: zipCode },
+    where: { zipCode: zipCode },
   });
 
   if (addressAlreadyExists) {
@@ -24,9 +25,9 @@ export const providerMiddleware = async (
   }
 
   const newAddress = new Addresses();
-  newAddress.cep = zipCode;
+  newAddress.zipCode = zipCode;
   newAddress.city = city;
-  newAddress.complement = complement;
+  newAddress.complement = complement!;
   newAddress.number = number;
   newAddress.district = district;
   newAddress.street = street;

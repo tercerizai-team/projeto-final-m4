@@ -4,7 +4,7 @@ import AppError from "../../errors/AppError";
 
 const listUserFeedbacksService = async (userId: string) => {
   const usersRepository = AppDataSource.getRepository(Users);
-
+  
   const user = await usersRepository.findOne({
     where: { id: userId },
     relations: { feedbacks: true },
