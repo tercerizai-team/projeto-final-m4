@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createUserController } from "../controllers/users/createUser.controller";
+import { editUserController } from "../controllers/users/editUser.controller";
 import { getUserController } from "../controllers/users/getUser.controller";
 import { listUsersController } from "../controllers/users/listUsers.controller";
 import { softDeleteUserController } from "../controllers/users/softDeleteUser.controller";
@@ -12,5 +13,6 @@ usersRoutes.post("", createUserController)
 usersRoutes.get("", authUserMiddleware, isAdmMiddleware, listUsersController)
 usersRoutes.get("/:id", authUserMiddleware, isAdmMiddleware, getUserController)
 usersRoutes.delete("/:id", authUserMiddleware, isAdmMiddleware, softDeleteUserController)
+usersRoutes.patch("/:id", authUserMiddleware, editUserController)
 
-export default usersRoutes
+export default usersRoutes  
