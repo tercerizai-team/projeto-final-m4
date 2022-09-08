@@ -10,7 +10,7 @@ export const handleErrorMiddleware = async (error: Error, req: Request, res: Res
         })
     }
 
-    return res.status(400).json({
+    return res.status(500).json({
         message: "Internal Server Error"
     })
 }
