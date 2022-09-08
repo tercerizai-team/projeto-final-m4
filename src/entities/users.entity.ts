@@ -4,6 +4,7 @@ import { AddressesUsers } from "./addresses_users.entity";
 import { Schedules } from "./schedules.entity";
 import { UsersFeedbacks } from "./users_feedbacks.entity";
 import { v4 as uuid } from "uuid"
+import { ServicesFeedbacks } from "./services_feedbacks.entity";
 
 
 @Entity("users")
@@ -44,6 +45,9 @@ export class Users {
 
     @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.userId, { eager: true })
     feedbacks: UsersFeedbacks[]
+
+    @OneToMany(() => ServicesFeedbacks, serviceFeedbacks => serviceFeedbacks.serviceId)
+    givedfeedbacks: ServicesFeedbacks[]
     
     constructor() {
         if (!this.id) {

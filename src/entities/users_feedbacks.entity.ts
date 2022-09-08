@@ -15,7 +15,7 @@ export class UsersFeedbacks {
     @Column({ length: 256 })
     comment: string
 
-    @OneToOne(() => Providers) @JoinColumn()
+    @ManyToOne(() => Providers)
     providerId: Providers
 
     @ManyToOne(() => Users)
