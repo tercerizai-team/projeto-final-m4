@@ -3,6 +3,6 @@ import { Providers } from "../../entities/providers.entity"
 
 export const listProvidersService = async () => {
     const providerRepository = AppDataSource.getRepository(Providers)
-    const providers = providerRepository.find()
+    const providers = await providerRepository.find()
     return providers
 }
