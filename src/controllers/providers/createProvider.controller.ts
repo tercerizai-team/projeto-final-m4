@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createProviderService } from "../../services/providers/createProvider.service";
 
 export const createProviderController = async (req: Request, res: Response) => {
+  console.log(req.body);
   const newProvider = await createProviderService(req.body);
   return res.status(201).json(newProvider);
 };
