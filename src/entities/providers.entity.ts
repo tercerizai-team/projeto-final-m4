@@ -52,7 +52,7 @@ export class Providers {
     @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.provider, { eager: true })
     feedbacks: ServicesFeedbacks[]
 
-    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.providerId)
+    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.provider)
     givedFeedbacks: UsersFeedbacks[]
 
 }

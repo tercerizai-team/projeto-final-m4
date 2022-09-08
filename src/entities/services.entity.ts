@@ -17,7 +17,7 @@ export class Services {
     @OneToOne(() => Schedules) @JoinColumn()
     schedule: Schedules
 
-    @OneToMany(() => ServicesFeedbacks, serviceFeedbacks => serviceFeedbacks.serviceId, { eager: true })
+    @OneToMany(() => ServicesFeedbacks, serviceFeedbacks => serviceFeedbacks.service, { eager: true })
     feedbacks: ServicesFeedbacks[]
 
 }
