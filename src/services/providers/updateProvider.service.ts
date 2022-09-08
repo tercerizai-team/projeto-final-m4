@@ -13,7 +13,7 @@ export const updateProviderService = async (
   const providerRepository = AppDataSource.getRepository(Providers);
   const provider = await providerRepository.findOneBy({ id });
 
-  if(providerId !== id || !isAdm) {
+  if(providerId !== id && !isAdm) {
     throw new AppError('Unauthorized access', 401)
   }
 
