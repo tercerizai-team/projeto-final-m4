@@ -45,9 +45,6 @@ export class Providers {
     @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.provider, { eager: true })
     categories: Categories[]
 
-    @OneToOne(() => ProviderSchedule, { eager: true, nullable: true }) @JoinColumn()
-    providerSchedule: ProviderSchedule
-
     @OneToMany(() => Schedules, schedules => schedules.provider, { eager: true })
     schedules: Schedules[]
 
@@ -56,6 +53,9 @@ export class Providers {
 
     @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.provider)
     givedFeedbacks: UsersFeedbacks[]
+
+    @OneToMany(() => ProviderSchedule, providerSchedule => providerSchedule.provider)
+    providerSchedule: ProviderSchedule[]
 
     constructor() {
         if (!this.id) {
