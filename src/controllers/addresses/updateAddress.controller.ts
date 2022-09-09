@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import updateAddressService from "../../services/addresses/updateAddress.service";
+import updateAddressService from "../../services/addresses/updateAddress.services";
 
 
 const updateAddressController = async (req: Request, res: Response) => {

@@ -9,10 +9,10 @@ export class AddressesUsers {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @ManyToOne(() => Addresses)
+    @ManyToOne(() => Addresses, {eager: true})
     address: Addresses
 
-    @ManyToOne(() => Users)
+    @ManyToOne(() => Users, {eager: true})
     user: Users
 
 }
