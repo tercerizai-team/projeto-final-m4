@@ -7,6 +7,6 @@ export const updateUserFeedbackController = async (
 ) => {
   const { note, comment } = req.body;
   const feedbackId = req.params.id;
-  const feedback = updateUserFeedbackService({ note, comment }, feedbackId);
+  const feedback = await updateUserFeedbackService({ note, comment }, feedbackId);
   return res.json(feedback);
 };
