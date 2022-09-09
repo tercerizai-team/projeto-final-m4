@@ -10,5 +10,7 @@ export const createUserFeedbackController = async (
 
   const newFeedback = await createUserFeedbackService(note, comment, userId, providerId);
 
-  return res.status(201).json(newFeedback);
+  const {user, provider, ...formattedFeedback} = newFeedback
+
+  return res.status(201).json(formattedFeedback);
 };

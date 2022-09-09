@@ -8,10 +8,13 @@ const updateUserFeedbackService = async (
 ) => {
   const usersFeedbacksRepository = AppDataSource.getRepository(UsersFeedbacks);
 
-  const feedback = await usersFeedbacksRepository.update(feedbackId, {
+  await usersFeedbacksRepository.update(feedbackId, {
     note,
     comment,
   });
+
+  const feedback = usersFeedbacksRepository.findOneBy({id: feedbackId})
+
   return feedback;
 };
 
