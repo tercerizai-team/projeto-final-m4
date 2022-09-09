@@ -21,9 +21,10 @@ export const editUserService = async ({name, email, password, phone}: IUserEdit,
     if (!account){
         throw new AppError('User not found', 404)
     }
-
-    if (phone?.length !== 11){
-        throw new AppError('Phone must have eleven numbers', 400)
+    if (phone){
+        if (phone?.length !== 11){
+            throw new AppError('Phone must have eleven numbers', 400)
+        }
     }
 
     let hashedPassword = password

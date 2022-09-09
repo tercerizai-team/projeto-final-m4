@@ -16,4 +16,4 @@ usersRoutes.patch("/:id", authUserMiddleware, editUserController)
 usersRoutes.get("/:id", authUserMiddleware, isTheOwnerOrAdmMiddleware, getUserController)
 usersRoutes.delete("/:id", authUserMiddleware, isTheOwnerOrAdmMiddleware, softDeleteUserController)
 
-export default usersRoutes  
+export default usersRoutes

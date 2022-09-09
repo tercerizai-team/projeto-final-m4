@@ -3,11 +3,10 @@ import { Providers } from "../../entities/providers.entity";
 import { Users } from "../../entities/users.entity";
 import { UsersFeedbacks } from "../../entities/users_feedbacks.entity";
 import AppError from "../../errors/AppError";
+import { IUserFeedbackRequest } from "../../interfaces/feedback.interfaces";
 
 const createUserFeedbackService = async (
-  note: number,
-  comment: string,
-  userId: string,
+  { note, comment, userId }: IUserFeedbackRequest,
   providerId: string
 ): Promise<UsersFeedbacks> => {
   const usersFeedbacksRepository = AppDataSource.getRepository(UsersFeedbacks);
