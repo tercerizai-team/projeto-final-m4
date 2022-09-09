@@ -20,7 +20,7 @@ describe("/users", () => {
         await connection.destroy()
     })
 
-    test("/POST users -  deve ser capaz de criar um usuário 201", async () => {
+    test("/POST users -  deve ser capaz de criar um usuário", async () => {
 
         const response = await request(app).post("/users").send(mockedUserNotAdm)
 
