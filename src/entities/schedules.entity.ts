@@ -43,7 +43,6 @@ export class Schedules {
   @ManyToOne(() => Users)
   user: Users;
 
-  @OneToOne(() => Addresses)
-  @JoinColumn()
+  @ManyToOne(() => Addresses, { eager: true })
   address: Addresses;
 }
