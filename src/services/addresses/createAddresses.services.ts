@@ -16,7 +16,7 @@ const createAddressesService = async (
     district,
     complement,
   }: IAdressRequest,
-  token: string
+  userId: string
 ) => {
   const addressesRepository = AppDataSource.getRepository(Addresses);
   const address = await addressesRepository.find();
@@ -34,13 +34,18 @@ const createAddressesService = async (
   addressesRepository.create(newAddress);
   await addressesRepository.save(newAddress);
 
-  if (token) {
+  if (userId) {
     const addressUserRepository = AppDataSource.getRepository(AddressesUsers);
     const userRepository = AppDataSource.getRepository(Users);
 
     const users = await userRepository.find();
 
-    const user = users.find((user) => user.id === token);
+    const user = users.find((user) => user.id === userId);
+
+    console.log("------USERS----",userId )
+
+    console.log("-----USER-----",user )
+
 
     const newPivotAddress: any = {
       id: uuid(),
