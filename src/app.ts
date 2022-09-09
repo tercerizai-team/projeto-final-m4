@@ -21,7 +21,7 @@ app.use("/usersFeedbacks", usersFeedbacksRoutes);
 app.use("/address", addressesRoutes);
 app.use("/providers", providersRoutes);
 app.use("/categories", categoriesRoutes);
-app.use("/schedules", scheduleRoutes);
+app.use("/schedule", scheduleRoutes);
 app.use("/servicesFeedbacks", servicesFeedbacksRoutes)
 
 app.use(handleErrorMiddleware);

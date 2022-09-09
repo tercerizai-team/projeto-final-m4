@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { AddressesUsers } from "./addresses_users.entity";
+import { Providers } from "./providers.entity";
 import { Users } from "./users.entity";
 
 @Entity("addresses")
@@ -32,5 +33,4 @@ export class Addresses {
 
     @OneToMany(() => AddressesUsers, addressesUsers => addressesUsers.address)
     user: Users
-
 }
