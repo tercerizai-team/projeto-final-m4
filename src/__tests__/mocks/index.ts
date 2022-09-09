@@ -42,6 +42,25 @@ export const mockedProvider = {
     
 }
 
+export const mockedProviderTest = {
+
+    email: "teste@gmail.com",
+    name: "Matheus Willcox",
+    phone: "32098765456",
+    password: "432423!@aa",
+    isPremium: false,
+    address: {
+      state: "PR",
+      street: "Rua Fabio jr",
+      district: "Bairro tal",
+      number: "10",
+      complement: "Portão azul",
+      city: "Recife",
+      zipCode: "12345679"
+    }
+    
+}
+
 export const mockedProviderPremium = {
 
     email: "exemplo@gmail.com",
