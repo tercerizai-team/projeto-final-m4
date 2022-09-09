@@ -6,6 +6,8 @@ import { ProviderSchedule } from "./provider_schedule.entity";
 import { Schedules } from "./schedules.entity";
 import { ServicesFeedbacks } from "./services_feedbacks.entity";
 import { UsersFeedbacks } from "./users_feedbacks.entity";
+import { v4 as uuid } from "uuid"
+
 
 @Entity("providers")
 export class Providers {
@@ -54,5 +56,11 @@ export class Providers {
 
     @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.provider)
     givedFeedbacks: UsersFeedbacks[]
+
+    constructor() {
+        if (!this.id) {
+            this.id = uuid()
+        }
+    }
 
 }

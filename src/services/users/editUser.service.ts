@@ -19,7 +19,7 @@ export const editUserService = async ({name, email, password, phone}: IUserEdit,
     const account = await userRepository.findOneBy({id})
 
     if (!account){
-        throw new AppError('User not found', 400)
+        throw new AppError('User not found', 404)
     }
     if (phone){
         if (phone?.length !== 11){

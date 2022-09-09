@@ -93,7 +93,7 @@ export default {
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
-  testMatch: ["**/__tests__/*.test.ts"],
+  testMatch: ["**/**/*.test.ts"],
 
   // Activates notifications for test results
   // notify: false,
