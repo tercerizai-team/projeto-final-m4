@@ -8,6 +8,7 @@ import providersRoutes from "./routes/provider.routes";
 import usersFeedbacksRoutes from "./routes/usersFeedbacks.routes";
 import addressesRoutes from "./routes/addresses.routes";
 import categoriesRoutes from "./routes/categories.routes";
+import servicesFeedbacksRoutes from "./routes/servicesFeedbacks.routes";
 
 const app = express();
 app.use(express.json());
@@ -18,8 +19,8 @@ app.use("/usersFeedbacks", usersFeedbacksRoutes)
 app.use("/address", addressesRoutes)
 app.use("/providers", providersRoutes)
 app.use("/categories", categoriesRoutes)
+app.use("/servicesFeedbacks", servicesFeedbacksRoutes)
 
 app.use(handleErrorMiddleware);
-
 
 export default app;
