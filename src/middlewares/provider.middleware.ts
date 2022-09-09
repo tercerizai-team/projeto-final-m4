@@ -3,6 +3,7 @@ import AppError from "../errors/AppError";
 import { Addresses } from "../entities/addresses.entity";
 import AppDataSource from "../data-source";
 import { IAdressRequest } from "../interfaces/address.interfaces";
+import { Providers } from "../entities/providers.entity";
 
 export const providerMiddleware = async (
   req: Request,
@@ -10,8 +11,16 @@ export const providerMiddleware = async (
   next: NextFunction
 ) => {
   const addressRepository = AppDataSource.getRepository(Addresses);
+  const providerRepository = AppDataSource.getRepository(Providers)
 
   const address = req.body.address;
+  const {email} = req.body
+
+  const verifyEmail = await providerRepository.findOneBy({email: email})
+  
+  if (verifyEmail){
+    throw new AppError("User already exists", 400)
+  }
 
   const { state, street, district, number, complement, city, zipCode }: IAdressRequest =
     address;
@@ -20,8 +29,13 @@ export const providerMiddleware = async (
     throw new AppError("Invalid zipCode");
   }
   const addressAlreadyExists = await addressRepository.findOne({
-    where: { zipCode: zipCode },
+    where: {
+      street: street,
+      number: number,
+      complement: complement
+    },
   });
+
 
   if (addressAlreadyExists) {
     throw new AppError("Address already exists", 400);

@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { AddressesUsers } from "./addresses_users.entity";
+import { Providers } from "./providers.entity";
 import { Schedules } from "./schedules.entity";
 import { Users } from "./users.entity";
 
@@ -34,4 +35,5 @@ export class Addresses {
 
   @OneToMany(() => Schedules, (schedules) => schedules.address)
   schedules: Schedules[];
+  
 }
