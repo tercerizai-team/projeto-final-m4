@@ -2,9 +2,15 @@ import { Request, Response } from "express";
 import getAddressesService from "../../services/addresses/getAddresses.services";
 
 const getAddressController = async (req: Request, res: Response) => {
-    const id = req.params.id
+
+    const isAdm = req.userIsAdm
+
+    const userId = req.userId;
+
+    const addressId = req.params.id
+
    
-    const address = await getAddressesService(id)
+    const address = await getAddressesService(addressId, userId, isAdm)
     return res.status(200).json(address)
 }
 
