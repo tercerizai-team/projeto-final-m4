@@ -34,18 +34,15 @@ const createAddressesService = async (
   addressesRepository.create(newAddress);
   await addressesRepository.save(newAddress);
 
-  
-
-
   if (token) {
     const addressUserRepository = AppDataSource.getRepository(AddressesUsers);
     const userRepository = AppDataSource.getRepository(Users);
 
     const users = await userRepository.find();
 
-    const user = users.find(user => user.id === token);
+    const user = users.find((user) => user.id === token);
 
-    const newPivotAddress:any = {
+    const newPivotAddress: any = {
       id: uuid(),
       address: newAddress,
       user: user,
@@ -64,10 +61,7 @@ const createAddressesService = async (
     }
     addressUserRepository.create(newPivotAddress);
     await addressUserRepository.save(newPivotAddress);
-
-
   }
-
 
   return newAddress;
 };

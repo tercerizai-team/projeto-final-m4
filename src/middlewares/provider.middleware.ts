@@ -16,12 +16,15 @@ export const providerMiddleware = async (
   const { state, street, district, number, complement, city, zipCode }: IAdressRequest =
     address;
 
+  if (zipCode.length > 8) {
+    throw new AppError("Invalid zipCode");
+  }
   const addressAlreadyExists = await addressRepository.findOne({
     where: { zipCode: zipCode },
   });
 
   if (addressAlreadyExists) {
-    next();
+    throw new AppError("Address already exists", 400);
   }
 
   const newAddress = new Addresses();

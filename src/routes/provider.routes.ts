@@ -10,10 +10,15 @@ import { providerMiddleware } from "../middlewares/provider.middleware";
 
 const providerRoutes = Router();
 
-providerRoutes.get('', listProvidersController)
-providerRoutes.patch('/:id', authUserMiddleware, updateProviderController)
-providerRoutes.delete('/:id', authUserMiddleware, deleteProviderController)
+providerRoutes.get("", listProvidersController);
+providerRoutes.patch("/:id", authUserMiddleware, updateProviderController);
+providerRoutes.delete("/:id", authUserMiddleware, deleteProviderController);
 providerRoutes.post("", providerMiddleware, createProviderController);
-providerRoutes.get("/:id", authUserMiddleware, isTheOwnerOrAdmMiddleware, getProviderController)
+providerRoutes.get(
+  "/:id",
+  authUserMiddleware,
+  isTheOwnerOrAdmMiddleware,
+  getProviderController
+);
 
 export default providerRoutes;
