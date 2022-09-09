@@ -55,7 +55,8 @@ describe("/providers", () => {
 
     test("GET providers - Deve ser capaz de listar todos os prestadores registrados", async () => {
 
-        await request(app).post("/users").send(mockedProvider)
+        await request(app).post("/providers").send(mockedProvider)
+        await request(app).post("/providers").send(mockedProviderTest)
         const adminLoginResponse = await request(app).post("/login").send(mockedProvider);
         const response = await request(app).get("/providers").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
@@ -76,9 +77,12 @@ describe("/providers", () => {
 
     test("GET providers/:id - Deve ser capaz de listar o perfil do prestador como dono do perfil", async () => {
 
-        const provider = await request(app).post("/providers").send(mockedProvider)
+        await request(app).post("/users").send(mockedUserAdm)
+        await request(app).post("/providers").send(mockedProvider)
+        const adminLoginResponse = await request(app).post("/login").send(mockedUserAdm)
         const providerLoginResponse = await request(app).post("/login").send(mockedProvider)
-        const response = await request(app).get(`/providers/${provider.body[0].id}`).set("Authorization", `Bearer ${providerLoginResponse.body.token}`)
+        const providerOne = await request(app).get("/providers").send(adminLoginResponse.body.token)
+        const response = await request(app).get(`/providers/${providerOne.body[0].id}`).set("Authorization", `Bearer ${providerLoginResponse.body.token}`)
 
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("id")
@@ -90,8 +94,11 @@ describe("/providers", () => {
 
     test("GET providers/:id - Não deveria ser capaz de listar perfil com o token inválido", async () => {
 
-        const providerOne = await request(app).post("/providers").send(mockedProvider)
+        await request(app).post("/users").send(mockedUserAdm)
         await request(app).post("/providers").send(mockedProviderTest)
+        await request(app).post("/providers").send(mockedProvider)
+        const adminLoginResponse = await request(app).post("/login").send(mockedUserAdm)
+        const providerOne = await request(app).get("/providers").send(adminLoginResponse.body.token)
         const providerTwoResponse = await request(app).post("/login").send(mockedProviderTest)
         const response = await request(app).get(`/providers/${providerOne.body[0].id}`).send(providerTwoResponse.body.token)
 
@@ -102,9 +109,10 @@ describe("/providers", () => {
 
     test("GET providers/:id - Adm deve ser capaz de listar perfil que não é o seu próprio", async () => {
 
-        const providerOne = await request(app).post("/providers").send(mockedProvider)
+        await request(app).post("/providers").send(mockedProvider)
         await request(app).post("/users").send(mockedUserAdm)
         const adminLoginResponse = await request(app).post("/login").send(mockedUserAdm)
+        const providerOne = await request(app).get("/providers").send(adminLoginResponse.body.token)
         const response = await request(app).get(`/providers/${providerOne.body[0].id}`).send(adminLoginResponse.body.token)
 
         expect(response.status).toBe(200)
