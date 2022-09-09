@@ -8,7 +8,7 @@ export const createUserFeedbackController = async (
   const { note, comment, userId } = req.body;
   const providerId = req.userId;
 
-  const newFeedback = await createUserFeedbackService(note, comment, userId, providerId);
+  const newFeedback = await createUserFeedbackService({note, comment, userId}, providerId);
 
   const {user, provider, ...formattedFeedback} = newFeedback
 

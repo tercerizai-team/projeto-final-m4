@@ -23,10 +23,6 @@ export class ServicesFeedbacks {
 
   @OneToOne(() => Users)
   @JoinColumn()
-  userId: Users;
-
-  @OneToOne(() => Users)
-  @JoinColumn()
   user: Users;
 
   @OneToOne(() => Services)
