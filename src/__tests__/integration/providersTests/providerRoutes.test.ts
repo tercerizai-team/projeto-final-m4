@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import request from "supertest"
 import app from "../../../app";
-import { mockedProvider, mockedProviderPremium, mockedProviderTest, mockedProviderWithoutAddress, mockedUserAdm } from "../../mocks";
+import { mockedProvider, mockedProviderLogin, mockedProviderPremium, mockedProviderTest, mockedProviderUpdate, mockedProviderWithoutAddress, mockedUserAdm } from "../../mocks";
 
 
 describe("/providers", () => {
@@ -38,20 +38,10 @@ describe("/providers", () => {
         const response = await request(app).post("/providers").send(mockedProviderWithoutAddress)
 
         expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty("message")
+        expect(response.body).toHaveProperty("error")
 
     })
 
-
-    test("POST providers - Não deveria conseguir cadastrar um prestador sendo premium isPremium === true", async () => {
-
-        const response = await request(app).post("/providers").send(mockedProviderPremium)
-
-        expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty("message")
-        expect(response.body.message).toBe("isPremium cannot be true at the register moment")
-
-    })
 
     test("GET providers - Deve ser capaz de listar todos os prestadores registrados", async () => {
 
@@ -65,13 +55,12 @@ describe("/providers", () => {
 
     })
 
-    test("GET providers - Não deveria ser capaz de listar prestadores sem autenticação", async () => {
+    test("GET providers - Deve ser capaz de listar todos os prestadores registrados sem token", async () => {
 
-        await request(app).post("/users").send(mockedUserAdm)
+        await request(app).post("/providers").send(mockedProvider)
         const response = await request(app).get("/providers")
-
-        expect(response.status).toBe(401)
-        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveLength(2)
 
     })
 
@@ -100,7 +89,7 @@ describe("/providers", () => {
         const adminLoginResponse = await request(app).post("/login").send(mockedUserAdm)
         const providerOne = await request(app).get("/providers").send(adminLoginResponse.body.token)
         const providerTwoResponse = await request(app).post("/login").send(mockedProviderTest)
-        const response = await request(app).get(`/providers/${providerOne.body[0].id}`).send(providerTwoResponse.body.token)
+        const response = await request(app).get(`/providers/${providerOne.body[0].id}`).set("Authorization",`Bearer ${providerTwoResponse.body.token}`)
 
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
@@ -112,8 +101,8 @@ describe("/providers", () => {
         await request(app).post("/providers").send(mockedProvider)
         await request(app).post("/users").send(mockedUserAdm)
         const adminLoginResponse = await request(app).post("/login").send(mockedUserAdm)
-        const providerOne = await request(app).get("/providers").send(adminLoginResponse.body.token)
-        const response = await request(app).get(`/providers/${providerOne.body[0].id}`).send(adminLoginResponse.body.token)
+        const providerOne = await request(app).get("/providers")
+        const response = await request(app).get(`/providers/${providerOne.body[0].id}`).set("Authorization",`Bearer ${adminLoginResponse.body.token}`)
 
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("id")
@@ -121,6 +110,105 @@ describe("/providers", () => {
         expect(response.body).toHaveProperty("schedules")
         expect(response.body).toHaveProperty("categories")
 
+    })
+
+    test("PATCH providers/:id - Adm deve ser capaz de editar um prestador de serviço", async () => {
+
+        await request(app).post("/providers").send(mockedProvider)
+        await request(app).post("/users").send(mockedUserAdm)
+        const adminLoginResponse = await request(app).post("/login").send(mockedUserAdm)
+        const userToPatch = await request(app).get("/providers/")
+        const response = await request(app).patch(`/providers/${userToPatch.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedProviderUpdate) 
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("name")
+        expect(response.body.name).toBe("jorgin")
+
+    })
+
+    test("PATCH providers/:id - Dono do perfil deve ser capaz de editar seu próprio perfil", async () => {
+
+        await request(app).post("/providers").send(mockedProvider)
+        const mockedLoginResponse = await request(app).post("/login").send(mockedProvider)
+        const userToPatch = await request(app).get("/providers/")
+        const response = await request(app).patch(`/providers/${userToPatch.body[0].id}`).set("Authorization", `Bearer ${mockedLoginResponse.body.token}`).send(mockedProviderUpdate) 
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("name")
+        expect(response.body.name).toBe("jorgin")
+
+    })
+
+    test("PATCH providers/:id - Um prestador não deve ser capaz de editar o perfil de outro", async () => {
+
+        await request(app).post("/providers").send(mockedProviderTest)
+        await request(app).post("/providers").send(mockedProvider)
+        const mockedLoginResponse = await request(app).post("/login").send(mockedProvider)
+        const userToPatch = await request(app).get("/providers/")
+        const response = await request(app).patch(`/providers/${userToPatch.body[1].id}`).set("Authorization", `Bearer ${mockedLoginResponse.body.token}`).send(mockedProviderUpdate) 
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+
+    })
+
+    test("PATCH providers/:id - Não deveria poder editar um perfil sem token", async () => {
+
+        await request(app).post("/providers").send(mockedProvider)
+        const mockedLoginResponse = await request(app).post("/login").send(mockedProvider)
+        const userToPatch = await request(app).get("/providers/")
+        const response = await request(app).patch(`/providers/${userToPatch.body[0].id}`).send(mockedProviderUpdate) 
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+
+    })
+
+    test("PATCH providers/:id - Não deveria poder editar um perfil com id inválido", async () => {
+
+        await request(app).post("/providers").send(mockedProvider)
+        const mockedLoginResponse = await request(app).post("/login").send(mockedProvider)
+        const userToPatch = await request(app).get("/providers/")
+        const response = await request(app).patch(`/providers/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization", `Bearer ${mockedLoginResponse.body.token}`).send(mockedProviderUpdate) 
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+
+    })
+
+    test("DELETE /providers/:id -  Não deveria conseguir deletar um prestador sem autenticação", async () => {
+
+        await request(app).post("/login").send(mockedProvider);
+        const UserTobeDeleted = await request(app).get("/providers")
+        const response = await request(app).delete(`/providers/${UserTobeDeleted.body[0].id}`)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401)
+             
+    })
+
+    test("DELETE /providers/:id -  Deve conseguir deletar um prestador", async () => {
+
+        await request(app).post("/providers").send(mockedProvider)
+        const providerLoginResponse = await request(app).post("/login").send(mockedProvider);
+        const UserTobeDeleted = await request(app).get("/providers")
+        const response = await request(app).delete(`/providers/${UserTobeDeleted.body[0].id}`).set("Authorization", `Bearer ${providerLoginResponse.body.token}`)
+        const findUser = await request(app).get("/providers")
+
+        expect(response.status).toBe(200)
+        expect(findUser.body[0].isActive).toBe(false)
+     
+    })
+
+    test("DELETE /providers/:id -  Não deveria deletar um prestador de id inválido", async () => {
+
+        await request(app).post("/providers").send(mockedUserAdm)
+        const mockedLoginResponse = await request(app).post("/login").send(mockedUserAdm)
+        const response = await request(app).delete("/providers/13970660-5dbe-423a-9a9d-5c23b37943cf").set("Authorization", `Bearer ${mockedLoginResponse.body.token}`)
+
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty("message")
+     
     })
 
 })
