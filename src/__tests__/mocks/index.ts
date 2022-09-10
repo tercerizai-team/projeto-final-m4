@@ -39,6 +39,13 @@ export const mockedProvider = {
   },
 };
 
+
+export const mockedProviderLogin = {
+  name: "Matheus Willcox",
+  password: "432423!@aa"
+}
+
+
 export const mockedProviderTest = {
   email: "teste@gmail.com",
   name: "Matheus Willcox",
@@ -80,3 +87,7 @@ export const mockedProviderWithoutAddress = {
   password: "432423!@aa",
   isPremium: false,
 };
+
+export const mockedProviderUpdate = {
+  name: "jorgin"
+}
