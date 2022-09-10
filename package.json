@@ -5,6 +5,7 @@
     "@types/mocha": "^9.1.1",
     "@types/pg": "^8.6.5",
     "@types/reflect-metadata": "^0.1.0",
+    "@types/yup": "^0.32.0",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "cross-env": "^7.0.3",
@@ -18,13 +19,14 @@
     "ts-node-dev": "^2.0.0",
     "tsc": "^2.0.4",
     "typeorm": "^0.3.9",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest" 
+    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.18.6",

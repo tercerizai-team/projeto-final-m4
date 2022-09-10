@@ -6,14 +6,19 @@ import { listProvidersController } from "../controllers/providers/listProviders.
 import { updateProviderController } from "../controllers/providers/updateProvider.controller";
 import { authUserMiddleware } from "../middlewares/authUser.middleware";
 import { isTheOwnerOrAdmMiddleware } from "../middlewares/isTheOwnerOrAdm.middleware";
-import { providerMiddleware } from "../middlewares/provider.middleware";
+import { validationMiddleware } from "../middlewares/validationProvider.middleware";
+import { providerSchema } from "../schemas";
 
 const providerRoutes = Router();
 
 providerRoutes.get("", listProvidersController);
 providerRoutes.patch("/:id", authUserMiddleware, updateProviderController);
 providerRoutes.delete("/:id", authUserMiddleware, deleteProviderController);
-providerRoutes.post("", providerMiddleware, createProviderController);
+providerRoutes.post(
+  "",
+  validationMiddleware(providerSchema),
+  createProviderController
+);
 providerRoutes.get(
   "/:id",
   authUserMiddleware,

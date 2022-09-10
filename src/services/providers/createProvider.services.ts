@@ -5,42 +5,65 @@ import AppError from "../../errors/AppError";
 import { Providers } from "../../entities/providers.entity";
 import { IProviderRequest } from "../../interfaces/providers.interface";
 import { Addresses } from "../../entities/addresses.entity";
+import { IAdressRequest } from "../../interfaces/address.interfaces";
 
 export const createProviderService = async ({
   name,
   email,
   password,
   phone,
-  isPremium,
   address,
 }: IProviderRequest) => {
   const providersRepository = AppDataSource.getRepository(Providers);
   const addressRepository = AppDataSource.getRepository(Addresses);
 
-  const providerAlreadyExists = await providersRepository.findOne({
-    where: { email: email },
-  });
+  const verifyEmail = await providersRepository.findOneBy({ email: email });
 
-  const userAddress = await addressRepository.findOne({
+  if (verifyEmail) {
+    throw new AppError("User already exists", 400);
+  }
+
+  const {
+    state,
+    street,
+    district,
+    number,
+    complement,
+    city,
+    zipCode,
+  }: IAdressRequest = address;
+
+  const addressAlreadyExists = await addressRepository.findOne({
     where: {
       street: address.street,
       number: address.number,
-      complement: address.complement
+      complement: address.complement,
     },
   });
 
-  if (providerAlreadyExists) {
-    throw new AppError("Usuário já cadastrado", 400);
+  if (addressAlreadyExists) {
+    throw new AppError("Address already exists", 400);
   }
+
+  const newAddress = new Addresses();
+  newAddress.zipCode = zipCode;
+  newAddress.city = city;
+  newAddress.complement = complement!;
+  newAddress.number = number;
+  newAddress.district = district;
+  newAddress.street = street;
+  newAddress.state = state;
+
+  await addressRepository.save(newAddress);
 
   const newProvider = new Providers();
   newProvider.name = name;
   newProvider.email = email;
   newProvider.password = await hash(password, 10);
   newProvider.phone = phone;
-  newProvider.isPremium = isPremium;
+  newProvider.isPremium = false;
   newProvider.isActive = true;
-  newProvider.address = userAddress!;
+  newProvider.address = newAddress;
 
   providersRepository.create(newProvider);
   await providersRepository.save(newProvider);
