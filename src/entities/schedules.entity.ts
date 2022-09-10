@@ -17,7 +17,7 @@ export class Schedules {
   id: string;
 
   @Column({ type: "time" })
-  startServiceHour: Date;
+  hour: Date;
 
   @Column({ type: "time" })
   finishServiceHour: Date;
