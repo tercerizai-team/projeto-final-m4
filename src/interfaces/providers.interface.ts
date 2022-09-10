@@ -4,7 +4,7 @@ export interface adress {
   zipCode: string;
   number: string;
   street: string;
-  discrit: string;
+  district: string;
   complement?: string;
 }
 
@@ -13,6 +13,12 @@ export interface IProviderRequest {
   email: string;
   password: string;
   phone: string;
-  isPremium: boolean;
   address: adress;
+}
+
+export interface IProviderRequestYup {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
 }
