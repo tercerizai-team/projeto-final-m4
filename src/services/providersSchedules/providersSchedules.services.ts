@@ -37,33 +37,16 @@ export const createNewProviderScheduleService = async ({ day, initHour, limitHou
     const limitDateNow = new Date()
     limitDateNow.setHours(parseInt(splitedLimitHour[0]), parseInt(splitedLimitHour[1]))
 
-    if(validateDaysHours.length < 1){
-
-        const newDayHour = {
-            id: uuid(),
-            day,
-            initHour: initDateNow,
-            limitHour: limitDateNow
-        }
-
-        await hoursRepository.save(newDayHour)
-
-        const newProviderSchedule = {
-            id: uuid(),
-            dayHours: newDayHour,
-            provider: validateUserId
-        }
-
-        await providerSchedulesRepository.save(newProviderSchedule)
-
-        return newProviderSchedule
-    }
-
     let hourIsValid = false
+    let dayIsValid = true
 
     validateDaysHours.forEach(scheduleDay => {
 
         const validateHours = verifyHours(initDateNow, scheduleDay.dayHours.initHour.toString(), limitDateNow, scheduleDay.dayHours.limitHour.toString())
+
+        if(scheduleDay.dayHours.day === day){
+            dayIsValid = false
+        }
 
         if(validateHours){
             hourIsValid = true
@@ -71,7 +54,7 @@ export const createNewProviderScheduleService = async ({ day, initHour, limitHou
 
     })
 
-    if(!hourIsValid){
+    if(!hourIsValid && !dayIsValid){
         throw new AppError("horário inválido, verifique sua requisição");
     }
 
