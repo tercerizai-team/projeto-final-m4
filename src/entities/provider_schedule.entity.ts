@@ -1,6 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Categories } from "./categories.entity";
-import { DayHours } from "./day_hours.entity";
+import { DayHours } from "./dayHours.entity";
 import { Providers } from "./providers.entity";
 
 @Entity("provider_schedule")

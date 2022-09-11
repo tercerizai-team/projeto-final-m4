@@ -1,12 +1,14 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { DayHours } from "./day_hours.entity";
 import { ProviderSchedule } from "./provider_schedule.entity";
 
-@Entity("hours")
-export class Hours {
+@Entity("day_hours")
+export class DayHours {
 
     @PrimaryGeneratedColumn("uuid")
     id: string
+
+    @Column()
+    day: number
 
     @Column({ type: "time" })
     initHour: Date
@@ -14,7 +16,7 @@ export class Hours {
     @Column({ type: "time" })
     limitHour: Date
 
-    @OneToMany(() => DayHours, dayHours => dayHours.day)
-    day: DayHours
+    @OneToMany(() => ProviderSchedule, providerSchedule => providerSchedule.dayHours)
+    providerSchedule: ProviderSchedule[]
 
 }

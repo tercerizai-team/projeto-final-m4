@@ -10,6 +10,7 @@ import addressesRoutes from "./routes/addresses.routes";
 import categoriesRoutes from "./routes/categories.routes";
 import servicesFeedbacksRoutes from "./routes/servicesFeedbacks.routes";
 import scheduleRoutes from "./routes/schedule.routes";
+import providerSchedulesRoutes from "./routes/providersSchedules.routes";
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use("/providers", providersRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/schedule", scheduleRoutes);
 app.use("/servicesFeedbacks", servicesFeedbacksRoutes)
+app.use("/providerSchedules", providerSchedulesRoutes)
 
 app.use(handleErrorMiddleware);
 
