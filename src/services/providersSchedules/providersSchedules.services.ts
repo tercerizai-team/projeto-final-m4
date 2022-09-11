@@ -24,7 +24,7 @@ export const createNewProviderScheduleService = async ({ day, initHour, limitHou
     }
 
     const validateDaysHours = providerSchedules.filter((provSchedules) => {
-        return provSchedules.dayHours.day === day
+        return provSchedules.dayHours.day === day && provSchedules.provider.id === userId
     })
 
     const splitedInitHour = initHour.split(":")
