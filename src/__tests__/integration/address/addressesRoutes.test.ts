@@ -62,7 +62,7 @@ describe("/providers", () => {
         const response = await request(app).get("/address").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
         expect(response.status).toBe(200)
-        expect(response.body).toHaveLength(2)
+        expect(response.body).toHaveProperty("id")
 
     })
 
@@ -75,6 +75,15 @@ describe("/providers", () => {
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
 
+    })
+
+    test("DELETE /address - usuário deve conseguir deletar um endereço", async () => {
+
+        await request(app).post("/users").send(mockedUserAdm)
+        const userLoginResponse = await request(app).post("/login").send(mockedUserAdm);
+        const user = await request(app).get("/users").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const newAddress = await request(app).post("/address").send(mockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const usersAdresses = await request(app).delete("")
     })
 
 })
