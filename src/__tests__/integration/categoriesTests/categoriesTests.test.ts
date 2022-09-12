@@ -26,7 +26,7 @@ describe("/categories", () => {
     await connection.destroy();
   });
 
-  test("POST categories - Deve conseguir criar uma categoria apenas por um administrador", async () => {
+  test("POST categories - Um administrador deve conseguir criar uma categoria", async () => {
     await request(app).post("/users").send(mockedUserAdm);
     const adminLoginResponse = await request(app)
       .post("/login")
@@ -38,11 +38,16 @@ describe("/categories", () => {
 
     expect(responseAdm.status).toBe(201);
     expect(responseAdm.body).toHaveProperty("id");
+  });
 
+  test("POST categories - Um usuário normal não deve conseguir criar uma categoria", async () => {
     await request(app).post("/users").send(mockedUserNotAdm);
+    const notAdminLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedUserAdm);
     const responseUser = await request(app)
       .post("/categories")
-      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+      .set("Authorization", `Bearer ${notAdminLoginResponse.body.token}`)
       .send(mockedCategory);
 
     expect(responseUser.status).toBe(400);
@@ -64,7 +69,7 @@ describe("/categories", () => {
     expect(response.body[0]).toHaveProperty("name");
   });
 
-  test("PATCH categories - Apenas um administrador pode editar uma categoria", async () => {
+  test("PATCH categories - Um administrador deve poder editar uma categoria", async () => {
     await request(app).post("/users").send(mockedUserAdm);
     const adminLoginResponse = await request(app)
       .post("/login")
@@ -83,16 +88,29 @@ describe("/categories", () => {
     expect(responseAdm.body.name).toBe(mockedCategoryUpdate.name);
   });
 
-  test("DELETE categories - Apenas um administrador pode deletar uma categoria", async () => {
-    await request(app).post("/users").send(mockedUserAdm);
-    const adminLoginResponse = await request(app)
+  test("PATCH categories - Um usuário normal não deve poder editar uma categoria", async () => {
+    await request(app).post("/users").send(mockedUserNotAdm);
+    const notAdminLoginResponse = await request(app)
       .post("/login")
       .send(mockedUserAdm);
 
     const category = await request(app)
       .get("/categories")
 
-    await request(app).post("/users").send(mockedUserAdm);
+    const responseNotAdm = await request(app)
+      .patch(`/categories/${category.body[0].id}`)
+      .set("Authorization", `Bearer ${notAdminLoginResponse.body.token}`)
+      .send(mockedCategoryUpdate);
+
+    expect(responseNotAdm.status).toBe(400);
+    expect(responseNotAdm.body).toHaveProperty("message");
+  });
+
+  test("DELETE categories - Um usuário normal não deve poder deletar uma categoria", async () => {
+    const category = await request(app)
+      .get("/categories")
+
+    await request(app).post("/users").send(mockedUserNotAdm);
     const userLoginResponse = await request(app)
       .post("/login")
       .send(mockedUserNotAdm);
@@ -101,13 +119,24 @@ describe("/categories", () => {
       .delete(`/categories/${category.body[0].id}`)
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
 
+    expect(responseNotAdm.status).toBe(401);
+    expect(responseNotAdm.body).toHaveProperty("message");
+    expect(responseNotAdm.body.message).toBe("Access denied");
+  });
+
+  test("DELETE categories - Um administrador deve poder deletar uma categoria", async () => {
+    await request(app).post("/users").send(mockedUserAdm);
+    const adminLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedUserAdm);
+
+    const category = await request(app)
+      .get("/categories")
+
     const responseAdm = await request(app)
       .delete(`/categories/${category.body[0].id}`)
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
 
-    expect(responseNotAdm.status).toBe(401);
-    expect(responseNotAdm.body).toHaveProperty("message");
-    expect(responseNotAdm.body.message).toBe("Access denied");
     expect(responseAdm.status).toBe(200);
     expect(responseAdm.body).toHaveProperty("message");
     expect(responseAdm.body.message).toBe("Category deleted");
