@@ -91,3 +91,24 @@ export const mockedProviderWithoutAddress = {
 export const mockedProviderUpdate = {
   name: "jorgin"
 }
+
+
+export const mockedAddress = {
+  state: "PE",
+  street: "Rua tal",
+  district: "Bairro tal",
+  number: "32",
+  complement: "Portão azul",
+  city: "Recife",
+  zipCode: "12345678"
+}
+
+export const mockedAddressNoZip = {
+  state: "PE",
+  street: "Rua tal",
+  district: "Bairro tal",
+  number: "32",
+  complement: "Portão azul",
+  city: "Recife",
+  zipCode: ""
+}
