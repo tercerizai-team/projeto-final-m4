@@ -10,7 +10,7 @@ const getAddressesService = async (userId: string, userIsAdm: boolean) => {
 
 
   const addressToGet = pivotAddress.find(
-    elem => elem.address.id === addressId
+    elem => elem.address.id === userId
   );
 
   if (userIsAdm === true) {
