@@ -112,3 +112,11 @@ export const mockedAddressNoZip = {
   city: "Recife",
   zipCode: ""
 }
+
+export const mockedCategory = {
+  name: "Casa"
+}
+
+export const mockedCategoryUpdate = {
+  name: "Jardim"
+}

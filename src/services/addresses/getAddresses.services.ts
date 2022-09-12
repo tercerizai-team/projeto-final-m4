@@ -1,21 +1,31 @@
 import AppDataSource from "../../data-source";
 import AppError from "../../errors/AppError";
 import { AddressesUsers } from "../../entities/addresses_users.entity";
+import { Users } from "../../entities/users.entity";
 
-
-const getAddressesService = async (addressId: string, userId: string, userIsAdm: boolean) => {
-
+const getAddressesService = async (userId: string, userIsAdm: boolean) => {
   const addressUserRepository = AppDataSource.getRepository(AddressesUsers);
 
   const pivotAddress = await addressUserRepository.find();
 
+
   const addressToGet = pivotAddress.find(
-    elem => elem.address.id === addressId
+    elem => elem.address.id === userId
   );
 
-    if(addressToGet?.user.id !== userId && userIsAdm === false ){
-      throw new AppError("You don't have permission", 404);
+  if (userIsAdm === true) {
+    const usersRepository = AppDataSource.getRepository(Users);
+
+    const users = await usersRepository.find({
+      relations: { addresses: true },
+    });
+
+    if (!users) {
+      throw new AppError("User not found", 404);
     }
+
+    return users
+  }
 
   return addressToGet;
 };
