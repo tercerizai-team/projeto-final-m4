@@ -19,13 +19,33 @@ const createUserFeedbackService = async (
     throw new AppError("User not found", 404);
   }
 
-  const provider = await providersRepository.findOneBy({ id: providerId });
+  const provider = await providersRepository.findOne({
+    where: { id: providerId },
+    relations: { givedFeedbacks: true },
+  });
+
+  if (!provider) {
+    throw new AppError("Provider not found", 404);
+  }
+
+  const providerGivenFeedbacks = provider.givedFeedbacks;
+  const userFeedbacks = user.feedbacks;
+
+  userFeedbacks.forEach((feedback) => {
+    if (
+      providerGivenFeedbacks.some(
+        (givedFeedback) => givedFeedback.id === feedback.id
+      )
+    ) {
+      throw new AppError("Provider already given feedback to this user");
+    }
+  });
 
   const feedback = await usersFeedbacksRepository.save({
     note,
     comment,
     user,
-    provider: provider!
+    provider,
   });
 
   return feedback;
