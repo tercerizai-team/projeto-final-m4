@@ -7,7 +7,7 @@ import AppError from "../../errors/AppError";
 import { IServiceFeedbackRequest } from "../../interfaces/feedback.interfaces";
 
 const createServiceFeedbackService = async (
-  {note, comment, serviceId, providerId}: IServiceFeedbackRequest,
+  { note, comment, serviceId, providerId }: IServiceFeedbackRequest,
   userId: string
 ) => {
   const servicesFeedbacksRepository =
@@ -32,11 +32,27 @@ const createServiceFeedbackService = async (
     throw new AppError("Provider not found", 404);
   }
 
-  const user = await usersRepository.findOneBy({ id: userId });
+  const user = await usersRepository.findOne({
+    where: { id: userId },
+    relations: { givedfeedbacks: true },
+  });
 
   if (!user) {
     throw new AppError("User not found", 404);
   }
+
+  const userGivenFeedbacks = user.givedfeedbacks;
+  const providerFeedbacks = provider.feedbacks;
+
+  providerFeedbacks.forEach((feedback) => {
+    if (
+      userGivenFeedbacks.some(
+        (givenFeedback) => givenFeedback.id === feedback.id
+      )
+    ) {
+      throw new AppError("User already given feedback to this service");
+    }
+  });
 
   const serviceFeedback = await servicesFeedbacksRepository.save({
     note,
