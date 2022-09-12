@@ -8,8 +8,10 @@ const getAddressesService = async (userId: string, userIsAdm: boolean) => {
 
   const pivotAddress = await addressUserRepository.find();
 
-  const addressToGet = pivotAddress.filter((elem) => elem.user.id === userId);
 
+  const addressToGet = pivotAddress.find(
+    elem => elem.address.id === addressId
+  );
 
   if (userIsAdm === true) {
     const usersRepository = AppDataSource.getRepository(Users);
