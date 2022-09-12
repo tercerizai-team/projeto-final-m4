@@ -5,16 +5,9 @@ import app from "../../../app";
 import {
   mockedCategory,
   mockedCategoryUpdate,
-  mockedProvider,
-  mockedProviderLogin,
-  mockedProviderPremium,
-  mockedProviderTest,
-  mockedProviderUpdate,
-  mockedProviderWithoutAddress,
   mockedUserAdm,
   mockedUserNotAdm,
 } from "../../mocks";
-import { string } from "yup";
 
 describe("/categories", () => {
   let connection: DataSource;
@@ -78,13 +71,10 @@ describe("/categories", () => {
       .send(mockedUserAdm);
 
     const category = await request(app)
-      .patch("/categories")
-      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-      .send(mockedCategory);
-      console.log(category.body)
+      .get("/categories")
 
     const responseAdm = await request(app)
-      .patch(`/categories/${category.body.id}`)
+      .patch(`/categories/${category.body[0].id}`)
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
       .send(mockedCategoryUpdate);
 
@@ -100,9 +90,7 @@ describe("/categories", () => {
       .send(mockedUserAdm);
 
     const category = await request(app)
-      .post("/categories")
-      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-      .send(mockedCategory);
+      .get("/categories")
 
     await request(app).post("/users").send(mockedUserAdm);
     const userLoginResponse = await request(app)
@@ -110,14 +98,14 @@ describe("/categories", () => {
       .send(mockedUserNotAdm);
 
     const responseNotAdm = await request(app)
-      .delete(`/categories/${category.body.id}`)
+      .delete(`/categories/${category.body[0].id}`)
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
 
     const responseAdm = await request(app)
-      .delete(`/categories/${category.body.id}`)
+      .delete(`/categories/${category.body[0].id}`)
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
 
-    expect(responseNotAdm.status).toBe(400);
+    expect(responseNotAdm.status).toBe(401);
     expect(responseNotAdm.body).toHaveProperty("message");
     expect(responseNotAdm.body.message).toBe("Access denied");
     expect(responseAdm.status).toBe(200);
