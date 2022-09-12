@@ -12,6 +12,10 @@ const getAddressesService = async (addressId: string, userId: string, userIsAdm:
   const addressToGet = pivotAddress.find(
     elem => elem.address.id === addressId
   );
+  
+  if (!addressToGet) {
+    throw new AppError('Invalid address id', 404)
+  }
 
     if(addressToGet?.user.id !== userId && userIsAdm === false ){
       throw new AppError("You don't have permission", 404);
