@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Addresses } from "./addresses.entity";
 import { Users } from "./users.entity";
@@ -12,7 +13,9 @@ export class AddressesUsers {
     @ManyToOne(() => Addresses, {eager: true})
     address: Addresses
 
+
     @ManyToOne(() => Users, {eager: true})
+    @Exclude()
     user: Users
 
 }
