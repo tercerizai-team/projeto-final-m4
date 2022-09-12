@@ -91,3 +91,11 @@ export const mockedProviderWithoutAddress = {
 export const mockedProviderUpdate = {
   name: "jorgin"
 }
+
+export const mockedCategory = {
+  name: "Casa"
+}
+
+export const mockedCategoryUpdate = {
+  name: "Jardim"
+}
