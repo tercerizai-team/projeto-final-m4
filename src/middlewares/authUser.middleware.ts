@@ -17,6 +17,11 @@ export const authUserMiddleware = async (
     token as string,
     process.env.SECRET_KEY as string,
     (error: any, decoded: any) => {
+      if (error) {
+        return res.status(401).json({
+          message: "Invalid token",
+        });
+      }
       req.userEmail = decoded.email;
       req.userId = decoded.userId;
       req.userIsAdm = decoded.userIsAdm;

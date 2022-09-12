@@ -69,7 +69,7 @@ describe("/users", () => {
 
     })
 
-    test("GET /users -  Não deveria conseguir deletar um usuário sem ser um administrador", async () => {
+    test("DELETE /users -  Não deveria conseguir deletar um usuário sem ser um administrador", async () => {
 
         const userLoginResponse = await request(app).post("/login").send(mockedUserNotAdm);
         const response = await request(app).get('/users')
