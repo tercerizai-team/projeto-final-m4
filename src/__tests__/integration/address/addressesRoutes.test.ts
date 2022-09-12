@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import request from "supertest"
 import app from "../../../app";
-import { mockedAddress, mockedAddressNoZip, mockedUserAdm, mockedUserNotAdm } from "../../mocks";
+import { mockedAddress, mockedAddressNoZip, mockedAddressUpdate, mockedUserAdm, mockedUserNotAdm, twoMockedAddress } from "../../mocks";
 
 
 describe("/providers", () => {
@@ -62,7 +62,7 @@ describe("/providers", () => {
         const response = await request(app).get("/address").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
         expect(response.status).toBe(200)
-        expect(response.body).toHaveProperty("id")
+        expect(response.body).toHaveLength(2)
 
     })
 
@@ -77,13 +77,57 @@ describe("/providers", () => {
 
     })
 
-    test("DELETE /address - usuário deve conseguir deletar um endereço", async () => {
+    test("DELETE /address/:id - usuário deve conseguir deletar um endereço", async () => {
+
+        await request(app).post("/users").send(mockedUserNotAdm)
+        const userLoginResponse = await request(app).post("/login").send(mockedUserNotAdm);
+        await request(app).post("/address").send(mockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const addressToDelete = await request(app).get(`/address`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).delete(`/address/${addressToDelete.body.address.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("message")
+        
+    })
+
+    test("DELETE /address/:id - usuário não deve conseguir deletar um endereço com id inválido", async () => {
 
         await request(app).post("/users").send(mockedUserAdm)
         const userLoginResponse = await request(app).post("/login").send(mockedUserAdm);
-        const user = await request(app).get("/users").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-        const newAddress = await request(app).post("/address").send(mockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-        const usersAdresses = await request(app).delete("")
+        await request(app).post("/address").send(mockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const address = await request(app).get("/address").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).delete(`/address/123`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+        
+    })
+
+    test("PATCH /address/:id - usuário deve conseguir atualizar um endereço", async () => {
+
+        await request(app).post("/users").send(mockedUserNotAdm)
+        const userLoginResponse = await request(app).post("/login").send(mockedUserNotAdm);
+        const newAddress = await request(app).post("/address").send(twoMockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const addressToDelete = await request(app).get(`/address`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).patch(`/address/${addressToDelete.body.address.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAddressUpdate)
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("state")
+        expect(response.body.state).toBe("PR")
+        
+    })
+
+    test("PATCH /address/:id - usuário não deve conseguir atualizar um endereço com id inválido", async () => {
+
+        await request(app).post("/users").send(mockedUserAdm)
+        const userLoginResponse = await request(app).post("/login").send(mockedUserAdm);
+        await request(app).post("/address").send(mockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const address = await request(app).get("/address").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).patch(`/address/123}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+        
     })
 
 })

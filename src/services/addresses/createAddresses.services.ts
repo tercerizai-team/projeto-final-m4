@@ -42,10 +42,6 @@ const createAddressesService = async (
 
     const user = users.find((user) => user.id === userId);
 
-    console.log("------USERS----",userId )
-
-    console.log("-----USER-----",user )
-
 
     const newPivotAddress: any = {
       id: uuid(),
