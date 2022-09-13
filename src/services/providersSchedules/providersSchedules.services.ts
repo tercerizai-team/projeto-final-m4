@@ -5,7 +5,7 @@ import { ProviderSchedule } from "../../entities/provider_schedule.entity";
 import AppError from "../../errors/AppError";
 import { IProviderScheduleRequest } from "../../interfaces/providerSchedules.interfaces";
 import { v4 as uuid } from "uuid"
-import { verifyHours } from "../../utilityFunctions/verifyDate.utility";
+import { verifyHours } from "../../utils/verifyDate.utility";
 
 
 export const createNewProviderScheduleService = async ({ day, initHour, limitHour }: IProviderScheduleRequest, userId: string) => {
