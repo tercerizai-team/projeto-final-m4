@@ -9,13 +9,7 @@ export const deleteProviderCategoryService = async (providerId: string, id: stri
 
     const allProviderCategories = await providerCategoryRepository.find({relations: {provider: true}})
 
-    console.log(allProviderCategories)
-
-    console.log(providerId, id)
-
     const categoryToDelete:any = allProviderCategories.find(provCategory => provCategory.provider.id === providerId && provCategory.category.id === id)
-
-    console.log(categoryToDelete)
 
     if(!allProviderCategories){
         throw new AppError("invalid provider id or category id", 404);
