@@ -10,6 +10,10 @@ import { verifyHours } from "../../utils/verifyDate.utility";
 
 export const createNewProviderScheduleService = async ({ day, initHour, limitHour }: IProviderScheduleRequest, userId: string) => {
 
+    if(!day || !initHour || !limitHour){
+        throw new AppError("missing register info");
+    }
+
     const hoursRepository = AppDataSource.getRepository(DayHours)
     const providerSchedulesRepository = AppDataSource.getRepository(ProviderSchedule)
     const providersRepository = AppDataSource.getRepository(Providers)

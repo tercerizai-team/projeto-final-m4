@@ -11,7 +11,7 @@ import categoriesRoutes from "./routes/categories.routes";
 import servicesFeedbacksRoutes from "./routes/servicesFeedbacks.routes";
 import scheduleRoutes from "./routes/schedule.routes";
 import providerSchedulesRoutes from "./routes/providersSchedules.routes";
-
+import servicesRoutes from "./routes/service.routes";
 
 const app = express();
 app.use(express.json());
@@ -23,8 +23,9 @@ app.use("/address", addressesRoutes);
 app.use("/providers", providersRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/schedule", scheduleRoutes);
-app.use("/servicesFeedbacks", servicesFeedbacksRoutes)
-app.use("/providerSchedule", providerSchedulesRoutes)
+app.use("/servicesFeedbacks", servicesFeedbacksRoutes);
+app.use("/providerSchedule", providerSchedulesRoutes);
+app.use("/service", servicesRoutes);
 
 app.use(handleErrorMiddleware);
 

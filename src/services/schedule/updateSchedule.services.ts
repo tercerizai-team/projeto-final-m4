@@ -1,50 +1,57 @@
-import AppDataSource from "../../data-source"
-import { Schedules } from "../../entities/schedules.entity"
-import AppError from "../../errors/AppError"
-import { IScheduleUpdate } from "../../interfaces/schedule.interfaces"
+import AppDataSource from "../../data-source";
+import { Schedules } from "../../entities/schedules.entity";
+import AppError from "../../errors/AppError";
+import { IScheduleUpdate } from "../../interfaces/schedule.interfaces";
 
+const updateScheduleService = async (
+  {
+    hour,
+    serviceDate,
+    serviceDescription,
+    value,
+    finishServiceHour,
+  }: IScheduleUpdate,
+  id: string,
+  userId: string,
+  isAdm: boolean
+) => {
+  const scheduleRepository = AppDataSource.getRepository(Schedules);
 
-const updateScheduleService = async ({hour, serviceDate, serviceDescription, value}: IScheduleUpdate, id: string, userId: string, isAdm: boolean) => {
+  const findScheule = await scheduleRepository.findOne({
+    where: {
+      id: id,
+    },
+    relations: {
+      user: true,
+      provider: true,
+    },
+  });
 
-    const scheduleRepository = AppDataSource.getRepository(Schedules)
+  if (findScheule?.user.id !== userId && isAdm === false) {
+    throw new AppError("You are not allowed", 400);
+  }
 
-    const findScheule = await scheduleRepository.findOne({
-        where:{
-            id: id
-        },
-        relations: {
-            user: true,
-            provider: true
-        }
-    })
+  const newScheule = {
+    hour,
+    serviceDate,
+    serviceDescription,
+    value,
+    finishServiceHour,
+  };
 
-    console.log('-------------------------------------------------------------', findScheule?.user.id !== userId)
+  await scheduleRepository.update({ id }, newScheule);
 
-    if (findScheule?.user.id !== userId && isAdm === false){
-        throw new AppError("You are not allowed", 400)
-    }
+  const updatedSchedule = await scheduleRepository.findOne({
+    where: {
+      id: id,
+    },
+    relations: {
+      user: true,
+      provider: true,
+    },
+  });
 
-    const newScheule = {
-        hour,
-        serviceDate,
-        serviceDescription,
-        value,
-    }
+  return updatedSchedule;
+};
 
-    await scheduleRepository.update({id}, newScheule)
-
-    const updatedSchedule = await scheduleRepository.findOne({
-        where:{
-            id: id
-        },
-        relations: {
-            user: true,
-            provider: true
-        }
-    })
-
-    return updatedSchedule
-
-}
-
-export default updateScheduleService
+export default updateScheduleService;

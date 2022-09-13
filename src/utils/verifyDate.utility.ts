@@ -46,3 +46,39 @@ export const verifyHours = (initDateNow: Date, dbInitHour: string, limitDateNow:
     }
 
 }
+
+export const validateUpdateDayHours = (providerSchedulesByDay: any, initDate: Date, limitDate: Date, dayHourId: string) => {
+
+    let validate = true
+
+    const initHourUpdate = initDate.getHours()
+    const limitHourUpdate = limitDate.getHours()
+
+    providerSchedulesByDay.forEach((provSched:any) => {
+
+        const splitedDbInitHour = provSched.dayHours.initHour.toString().split(":")
+        const dbInitHour = splitedDbInitHour[0]
+
+        const splitedDbLimitHour = provSched.dayHours.limitHour.toString().split(":")
+        const dbLimitHour = splitedDbLimitHour[0]
+
+        if(initHourUpdate > dbLimitHour && dayHourId === provSched.dayHours.id){
+            throw new AppError("não é possível atualizar uma hora inicial para maior que uma final no mesmo dia");
+        }
+
+        if(limitHourUpdate < dbInitHour && dayHourId === provSched.dayHours.id){
+            throw new AppError("não é possível atualizar uma hora inicial para maior que uma final no mesmo dia");
+        }
+        
+        if(initHourUpdate <= dbLimitHour && dayHourId !== provSched.dayHours.id){
+            throw new AppError("não é possível atualizar uma hora inicial para maior que uma final já existente");
+        }
+
+        if(limitHourUpdate <= dbInitHour && dayHourId !== provSched.dayHours.id){
+            throw new AppError("não é possível atualizar uma hora final para maior que uma inicial já existente");
+        }
+    })
+
+    return validate
+
+}
