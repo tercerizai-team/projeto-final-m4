@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteProviderCategoryService } from "../../services/categories/deleteProviderCategory.services";
+import { deleteProviderCategoryService } from "../../services/providerCategory/deleteProviderCategory.services";
 
 
 export const deleteProviderCategoryController = async (req: Request, res: Response) => {
