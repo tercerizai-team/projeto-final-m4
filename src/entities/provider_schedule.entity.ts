@@ -8,7 +8,7 @@ export class ProviderSchedule {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @ManyToOne(() => Providers, { eager: true })
+    @ManyToOne(() => Providers)
     provider: Providers
 
     @ManyToOne(() => DayHours, { eager: true })

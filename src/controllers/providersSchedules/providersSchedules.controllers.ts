@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createNewProviderScheduleService } from "../../services/providersSchedules/providersSchedules.services";
+import { createNewProviderScheduleService } from "../../services/providersSchedules/createProvidersSchedules.services";
 
 
 export const createNewProviderScheduleController = async (req: Request, res: Response) => {
