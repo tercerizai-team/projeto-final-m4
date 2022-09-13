@@ -5,6 +5,7 @@ export interface IScheduleRequest {
   value: number;
   providerId: string;
   addressId: string;
+  finishServiceHour: Date;
 }
 
 export interface IScheduleUpdate {
@@ -12,4 +13,5 @@ export interface IScheduleUpdate {
   serviceDate?: Date;
   serviceDescription?: string;
   value?: number;
+  finishServiceHour?: Date;
 }
