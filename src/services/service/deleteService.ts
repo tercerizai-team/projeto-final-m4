@@ -31,5 +31,5 @@ export const deleteServiceService = async (
     }
   }
 
-  return service;
+  return serviceRepository.delete(service.id);
 };
