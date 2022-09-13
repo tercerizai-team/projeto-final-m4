@@ -37,13 +37,8 @@ export class Providers {
   @Column({ nullable: true })
   imageUrl: string;
 
-<<<<<<< HEAD
   @Column()
   isActive: boolean;
-=======
-    @Column({ nullable: true })
-    imageUrl: string
->>>>>>> 00722aef0779548a7387f0e4893005bd12655a11
 
   @Column()
   isPremium: boolean;
