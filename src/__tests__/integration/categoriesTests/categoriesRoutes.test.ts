@@ -106,6 +106,16 @@ describe("/categories", () => {
     expect(responseNotAdm.body).toHaveProperty("message");
   });
 
+  test("GET category - Deve ser possível listar os usuários que possuem a categoria passada como parâmetro", async () => {
+    const category = await request(app)
+      .get("/categories")
+    
+    const response = await request(app).get(`/categories/${category.body[0].id}`)
+
+    expect(response.status).toBe(200)
+    expect(response.body).not.toHaveProperty("message")
+  })
+
   test("DELETE categories - Um usuário normal não deve poder deletar uma categoria", async () => {
     const category = await request(app)
       .get("/categories")

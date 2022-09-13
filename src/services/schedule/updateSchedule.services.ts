@@ -27,11 +27,6 @@ const updateScheduleService = async (
     },
   });
 
-  console.log(
-    "-------------------------------------------------------------",
-    findScheule?.user.id !== userId
-  );
-
   if (findScheule?.user.id !== userId && isAdm === false) {
     throw new AppError("You are not allowed", 400);
   }

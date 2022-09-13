@@ -11,7 +11,7 @@ export class CategoryProvider {
     @ManyToOne(() => Providers)
     provider: Providers
 
-    @ManyToOne(() => Categories)
+    @ManyToOne(() => Categories, {eager: true})
     category: Categories
 
 }
