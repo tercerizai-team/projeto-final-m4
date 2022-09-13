@@ -45,8 +45,8 @@ export class Providers {
     @OneToOne(() => Addresses, { eager: true }) @JoinColumn()
     address: Addresses
 
-    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.provider, { eager: true })
-    categories: Categories[]
+    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.provider, {eager: true})
+    providerCategories: CategoryProvider[]
 
     @OneToMany(() => Schedules, schedules => schedules.provider, { eager: true })
     schedules: Schedules[]
