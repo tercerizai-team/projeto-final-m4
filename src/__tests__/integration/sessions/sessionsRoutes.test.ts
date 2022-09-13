@@ -23,9 +23,7 @@ describe("/users", () => {
     test("POST /login - Usuário deve conseguir logar com uma conta existente", async () => {
 
         const user = await request(app).post("/users").send(mockedUser)
-        console.log(user.body)
         const response = await request(app).post("/login").send(mockedUser)
-        console.log(response.body)
 
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("token")

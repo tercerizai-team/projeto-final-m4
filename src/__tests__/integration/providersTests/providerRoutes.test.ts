@@ -77,7 +77,6 @@ describe("/providers", () => {
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("address")
         expect(response.body).toHaveProperty("schedules")
-        expect(response.body).toHaveProperty("categories")
 
     })
 
@@ -108,7 +107,6 @@ describe("/providers", () => {
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("address")
         expect(response.body).toHaveProperty("schedules")
-        expect(response.body).toHaveProperty("categories")
 
     })
 

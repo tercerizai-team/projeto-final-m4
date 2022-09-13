@@ -49,7 +49,7 @@ export const mockedProvider = {
 
 
 export const mockedProviderLogin = {
-  name: "Matheus Willcox",
+  email: "exemplo@gmail.com",
   password: "432423!@aa"
 }
 
@@ -174,6 +174,10 @@ export const mockedProviderScheduleUpdate = {
 export const mockedFeedback = {
   note: 5,
   comment: "Ótimo cliente"
+}
+
+export const mockedUpdateFeedback = {
+  note: 4
 }
 
 export let mockedSchedule = {
