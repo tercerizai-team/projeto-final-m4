@@ -170,3 +170,8 @@ export const mockedProviderScheduleUpdate = {
   limitHour: "12:00"
   
 }
+
+export const mockedFeedback = {
+  note: 5,
+  comment: "Ótimo cliente"
+}
