@@ -175,3 +175,17 @@ export const mockedFeedback = {
   note: 5,
   comment: "Ótimo cliente"
 }
+
+export let mockedSchedule = {
+
+  hour: "10:00",
+  serviceDate: "2021-12-05",
+  description: "Lavar o carro",
+  providerId: "",
+  addressId: ""
+
+}
+
+export const mockedScheduleUpdate = {
+  hour:  "12:00"
+}

@@ -58,7 +58,7 @@ export class Providers {
     (categoryProvider) => categoryProvider.provider,
     { eager: true }
   )
-  categories: Categories[];
+  providerCategories: CategoryProvider[];
 
   @OneToMany(() => Schedules, (schedules) => schedules.provider, {
     eager: true,
@@ -75,10 +75,12 @@ export class Providers {
   @OneToMany(() => UsersFeedbacks, (usersFeedbacks) => usersFeedbacks.provider)
   givedFeedbacks: UsersFeedbacks[];
 
-
-  @OneToMany(() => ProviderSchedule, providerSchedule => providerSchedule.provider, { eager: true })
-  providerSchedule: ProviderSchedule[]
-
+  @OneToMany(
+    () => ProviderSchedule,
+    (providerSchedule) => providerSchedule.provider,
+    { eager: true }
+  )
+  providerSchedule: ProviderSchedule[];
 
   constructor() {
     if (!this.id) {

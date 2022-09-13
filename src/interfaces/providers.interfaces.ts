@@ -4,4 +4,5 @@ export interface IProviderRequest {
   phone: string
   password: string
   isPremium: boolean
+  categories: string[]
 }

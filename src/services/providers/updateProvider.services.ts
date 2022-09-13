@@ -1,5 +1,7 @@
 import { hash } from "bcryptjs";
 import AppDataSource from "../../data-source";
+import { Categories } from "../../entities/categories.entity";
+import { CategoryProvider } from "../../entities/category_provider.entity";
 import { Providers } from "../../entities/providers.entity";
 import AppError from "../../errors/AppError";
 import { IProviderRequest } from "../../interfaces/providers.interfaces";
@@ -11,10 +13,13 @@ export const updateProviderService = async (
   providerId: string
 ) => {
   const providerRepository = AppDataSource.getRepository(Providers);
+  const categoriesRepository = AppDataSource.getRepository(Categories);
+  const providersCategoriesRepository =
+    AppDataSource.getRepository(CategoryProvider);
   const provider = await providerRepository.findOneBy({ id });
 
-  if(providerId !== id && !isAdm) {
-    throw new AppError('Unauthorized access', 401)
+  if (providerId !== id && !isAdm) {
+    throw new AppError("Unauthorized access", 401);
   }
 
   if (!provider) {
@@ -34,6 +39,25 @@ export const updateProviderService = async (
     throw new Error("Email is already in use");
   }
 
+  providerData.categories?.forEach(async (categoryId) => {
+    const category = await categoriesRepository.findOneBy({ id: categoryId });
+
+    if (!category) {
+      throw new AppError("Category not exists");
+    }
+
+    const providersCategoriesExists = await providersCategoriesRepository.count(
+      { where: { category: { id: categoryId }, provider: { id: provider.id } } }
+    );
+
+    if (!providersCategoriesExists) {
+      await providersCategoriesRepository.save({
+        category,
+        provider,
+      });
+    }
+  });
+
   await providerRepository.update(provider!.id, {
     email: providerData.email,
     name: providerData.name,
@@ -44,6 +68,7 @@ export const updateProviderService = async (
     isPremium: providerData.isPremium,
   });
 
-  const newProvider = providerRepository.findOneBy({ id });
+  const newProvider = await providerRepository.findOneBy({ id });
+
   return newProvider;
 };
