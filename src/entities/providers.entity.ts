@@ -27,7 +27,7 @@ export class Providers {
     @Column()
     phone: string
 
-    @Column()
+    @Column({ nullable: true })
     imageUrl: string
 
     @Column()

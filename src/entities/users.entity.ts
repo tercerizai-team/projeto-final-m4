@@ -25,7 +25,7 @@ export class Users {
     @Column()
     phone: string
 
-    @Column()
+    @Column({ nullable: true })
     imageUrl: string
 
     @Column({ default: true })

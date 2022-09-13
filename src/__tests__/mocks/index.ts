@@ -10,6 +10,14 @@ export const mockedUserNotAdm = {
   isAdm: false,
 };
 
+export const mockedUser = {
+  name: "Jorjão",
+  email: "jorjão@mail.com",
+  password: "1234",
+  phone: "4111111111",
+  isAdm: false,
+};
+
 export const mockedUserAdm = {
   name: "Jorge",
   email: "jorge@mail.com",
@@ -44,6 +52,12 @@ export const mockedProviderLogin = {
   name: "Matheus Willcox",
   password: "432423!@aa"
 }
+
+export const mockedUserLogin = {
+  email: "jorgin@mail.com",
+  password: "123"
+}
+
 
 
 export const mockedProviderTest = {
