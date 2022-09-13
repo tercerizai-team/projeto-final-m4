@@ -27,6 +27,9 @@ export class Providers {
     @Column()
     phone: string
 
+    @Column({ nullable: true })
+    imageUrl: string
+
     @Column()
     isActive: boolean
 
