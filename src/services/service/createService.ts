@@ -14,6 +14,10 @@ export const createServiceService = async (scheduleId: string) => {
     throw new AppError("Schedule not found", 404);
   }
 
+  if (!schedule.providerConfirmed || !schedule.clientConfirmed) {
+    throw new AppError("Both need to confirm the service", 400);
+  }
+
   const newService = new Services();
   newService.schedule = schedule;
 
