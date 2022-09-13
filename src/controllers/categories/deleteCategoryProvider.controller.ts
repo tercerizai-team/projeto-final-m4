@@ -9,6 +9,6 @@ export const deleteProviderCategoryController = async (req: Request, res: Respon
 
     await deleteProviderCategoryService(providerId, id)
 
-    return res.status(204).json({message: "category removed!"})
+    return res.json({message: "Category removed!"})
 
 }
