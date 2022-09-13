@@ -14,10 +14,6 @@ export const createServiceService = async (scheduleId: string) => {
     throw new AppError("Schedule not found", 404);
   }
 
-  if (!schedule.finishServiceHour) {
-    throw new AppError("Schedule not finished", 400);
-  }
-
   const newService = new Services();
   newService.schedule = schedule;
 
