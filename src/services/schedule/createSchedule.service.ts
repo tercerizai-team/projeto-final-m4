@@ -14,6 +14,7 @@ export const createScheduleService = async (
     value,
     providerId,
     addressId,
+    finishServiceHour
   }: IScheduleRequest,
   data: any
 ) => {
@@ -54,6 +55,7 @@ export const createScheduleService = async (
 
   const newSchedule = new Schedules();
   newSchedule.hour = hour;
+  newSchedule.finishServiceHour = finishServiceHour;
   newSchedule.serviceDate = serviceDate;
   newSchedule.serviceDescription = description;
   newSchedule.value = value;
