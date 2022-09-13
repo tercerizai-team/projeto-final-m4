@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
+} from "typeorm";
 import { Addresses } from "./addresses.entity";
 import { Categories } from "./categories.entity";
 import { CategoryProvider } from "./category_provider.entity";
@@ -6,64 +15,75 @@ import { ProviderSchedule } from "./provider_schedule.entity";
 import { Schedules } from "./schedules.entity";
 import { ServicesFeedbacks } from "./services_feedbacks.entity";
 import { UsersFeedbacks } from "./users_feedbacks.entity";
-import { v4 as uuid } from "uuid"
-
+import { v4 as uuid } from "uuid";
 
 @Entity("providers")
 export class Providers {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+  @Column()
+  name: string;
 
-    @Column()
-    name: string
+  @Column()
+  email: string;
 
-    @Column()
-    email: string
+  @Column()
+  password: string;
 
-    @Column()
-    password: string
+  @Column()
+  phone: string;
 
-    @Column()
-    phone: string
+  @Column({ nullable: true })
+  imageUrl: string;
 
-    @Column()
-    imageUrl: string
+  @Column()
+  isActive: boolean;
 
-    @Column()
-    isActive: boolean
+  @Column()
+  isPremium: boolean;
 
-    @Column()
-    isPremium: boolean
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @CreateDateColumn()
-    createdAt: Date
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date
+  @OneToOne(() => Addresses, { eager: true })
+  @JoinColumn()
+  address: Addresses;
 
-    @OneToOne(() => Addresses, { eager: true }) @JoinColumn()
-    address: Addresses
+  @OneToMany(
+    () => CategoryProvider,
+    (categoryProvider) => categoryProvider.provider,
+    { eager: true }
+  )
+  categories: Categories[];
 
-    @OneToMany(() => CategoryProvider, categoryProvider => categoryProvider.provider, { eager: true })
-    categories: Categories[]
+  @OneToMany(() => Schedules, (schedules) => schedules.provider, {
+    eager: true,
+  })
+  schedules: Schedules[];
 
-    @OneToMany(() => Schedules, schedules => schedules.provider, { eager: true })
-    schedules: Schedules[]
+  @OneToMany(
+    () => ServicesFeedbacks,
+    (servicesFeedbacks) => servicesFeedbacks.provider,
+    { eager: true }
+  )
+  feedbacks: ServicesFeedbacks[];
 
-    @OneToMany(() => ServicesFeedbacks, servicesFeedbacks => servicesFeedbacks.provider, { eager: true })
-    feedbacks: ServicesFeedbacks[]
+  @OneToMany(() => UsersFeedbacks, (usersFeedbacks) => usersFeedbacks.provider)
+  givedFeedbacks: UsersFeedbacks[];
 
-    @OneToMany(() => UsersFeedbacks, usersFeedbacks => usersFeedbacks.provider)
-    givedFeedbacks: UsersFeedbacks[]
+  @OneToMany(
+    () => ProviderSchedule,
+    (providerSchedule) => providerSchedule.provider
+  )
+  providerSchedule: ProviderSchedule[];
 
-    @OneToMany(() => ProviderSchedule, providerSchedule => providerSchedule.provider)
-    providerSchedule: ProviderSchedule[]
-
-    constructor() {
-        if (!this.id) {
-            this.id = uuid()
-        }
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
     }
-
+  }
 }

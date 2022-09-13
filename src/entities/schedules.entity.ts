@@ -19,7 +19,7 @@ export class Schedules {
   @Column({ type: "time" })
   hour: Date;
 
-  @Column({ type: "time" })
+  @Column({ type: "time", nullable: true })
   finishServiceHour: Date;
 
   @Column({ type: "date" })
