@@ -11,8 +11,17 @@ export class Services {
     @Column({ default: false })
     isServiceFinished: boolean
 
+    @Column({ default: false })
+    isServiceCanceled: boolean
+
     @Column({ type: "date" })
     finalizedAt: Date
+
+    @Column({ default: false })
+    clientFinished: boolean;
+
+    @Column({ default: false })
+    providerFinished: boolean;
 
     @OneToOne(() => Schedules) @JoinColumn()
     schedule: Schedules
