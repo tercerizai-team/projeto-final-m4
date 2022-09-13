@@ -13,4 +13,5 @@ export interface IScheduleUpdate {
   serviceDate?: Date;
   serviceDescription?: string;
   value?: number;
+  finishServiceHour?: Date;
 }
