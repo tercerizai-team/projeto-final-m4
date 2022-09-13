@@ -25,6 +25,9 @@ export class Users {
     @Column()
     phone: string
 
+    @Column()
+    imageUrl: string
+
     @Column({ default: true })
     isActive: boolean
 

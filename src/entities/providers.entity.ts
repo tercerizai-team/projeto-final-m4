@@ -28,6 +28,9 @@ export class Providers {
     phone: string
 
     @Column()
+    imageUrl: string
+
+    @Column()
     isActive: boolean
 
     @Column()
