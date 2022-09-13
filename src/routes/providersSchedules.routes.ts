@@ -12,7 +12,7 @@ const providerSchedulesRoutes = Router()
 
 
 providerSchedulesRoutes.post("", authUserMiddleware, createNewProviderScheduleController)
-providerSchedulesRoutes.delete("/:id", authUserMiddleware, isTheOwnerOrAdmMiddleware, deleteProviderScheduleController)
+providerSchedulesRoutes.delete("/:id", isTheOwnerOrAdmMiddleware, deleteProviderScheduleController)
 providerSchedulesRoutes.patch("/:id", isTheOwnerOrAdmMiddleware, updateProviderScheduleController)
 providerSchedulesRoutes.get("", authUserMiddleware, listAllProviderSchedulesController)
 

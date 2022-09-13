@@ -148,3 +148,25 @@ export const mockedCategory = {
 export const mockedCategoryUpdate = {
   name: "Jardim"
 }
+
+export const mockedProviderSchedule = {
+  
+  day: 5,
+  initHour: "05:00",
+  limitHour: "20:00"
+  
+}
+
+export const mockedProviderScheduleNoDay = {
+  
+  initHour: "05:00",
+  limitHour: "20:00"
+  
+}
+
+export const mockedProviderScheduleUpdate = {
+
+  initHour: "08:00",
+  limitHour: "12:00"
+  
+}
