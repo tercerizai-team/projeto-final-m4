@@ -7,22 +7,20 @@ export const deleteProviderCategoryService = async (providerId: string, id: stri
 
     const providerCategoryRepository = AppDataSource.getRepository(CategoryProvider)
 
-    const allProviderCategories = await providerCategoryRepository.find({ where : {
-        id: providerId
-    }})
+    const allProviderCategories = await providerCategoryRepository.find({relations: {provider: true}})
+
+    console.log(allProviderCategories)
+
+    console.log(providerId, id)
+
+    const categoryToDelete:any = allProviderCategories.find(provCategory => provCategory.provider.id === providerId && provCategory.category.id === id)
+
+    console.log(categoryToDelete)
 
     if(!allProviderCategories){
-        throw new AppError("invalid provider id", 404);
-        
+        throw new AppError("invalid provider id or category id", 404);
     }
 
-    const pivotProviderCategory:any = allProviderCategories.find(providerCategory => providerCategory.category.id === id)
-
-    if(!pivotProviderCategory){
-        throw new AppError("invalid category id", 404);
-        
-    }
-
-    providerCategoryRepository.delete(pivotProviderCategory?.id)
+    await providerCategoryRepository.delete(categoryToDelete?.id)
 
 }

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { deleteCategoryController } from "../controllers/categories/deleteCategory.controller";
 import { createProviderController } from "../controllers/providers/createProvider.controller";
 import { deleteProviderController } from "../controllers/providers/deleteProvider.controller";
 import { getProviderController } from "../controllers/providers/getProvider.controller";

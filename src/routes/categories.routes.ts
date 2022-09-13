@@ -15,6 +15,5 @@ categoriesRoutes.get("", listCategoriesController)
 categoriesRoutes.get("/:id", getCategoryController)
 categoriesRoutes.delete("/:id", authUserMiddleware, isAdmMiddleware, deleteCategoryController)
 categoriesRoutes.patch("/:id", authUserMiddleware, isAdmMiddleware, editCategoryController)
-categoriesRoutes.delete("/:id/provider", authUserMiddleware, isTheOwnerOrAdmMiddleware, deleteCategoryController)
 
 export default categoriesRoutes
