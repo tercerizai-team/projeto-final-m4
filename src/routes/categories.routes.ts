@@ -6,6 +6,7 @@ import { getCategoryController } from "../controllers/categories/getCategory.con
 import { listCategoriesController } from "../controllers/categories/listCategories.controller";
 import { authUserMiddleware } from "../middlewares/authUser.middleware";
 import { isAdmMiddleware } from "../middlewares/isAdm.middleware";
+import { isTheOwnerOrAdmMiddleware } from "../middlewares/isTheOwnerOrAdm.middleware";
 
 const categoriesRoutes = Router()
 
@@ -14,5 +15,6 @@ categoriesRoutes.get("", listCategoriesController)
 categoriesRoutes.get("/:id", getCategoryController)
 categoriesRoutes.delete("/:id", authUserMiddleware, isAdmMiddleware, deleteCategoryController)
 categoriesRoutes.patch("/:id", authUserMiddleware, isAdmMiddleware, editCategoryController)
+categoriesRoutes.delete("/:id/provider", authUserMiddleware, isTheOwnerOrAdmMiddleware, deleteCategoryController)
 
 export default categoriesRoutes
