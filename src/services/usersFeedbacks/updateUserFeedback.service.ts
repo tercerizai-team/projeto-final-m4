@@ -13,7 +13,7 @@ const updateUserFeedbackService = async (
     comment,
   });
 
-  const feedback = usersFeedbacksRepository.findOneBy({id: feedbackId})
+  const feedback = await usersFeedbacksRepository.findOneBy({id: feedbackId})
 
   return feedback;
 };
