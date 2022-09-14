@@ -65,7 +65,10 @@ describe("/servicesFeedbacks", () => {
         addressId: address.body.id,
       });
 
-    const updateSchedule = await request(app).patch("/schedule"); //... atualizar a schedule para confirmar provider e user para a criação do serviço funcionar
+    const updateSchedule = await request(app)
+      .patch(`/schedule/${schedule.body.id}`)
+      .set("Authorization", `Bearer ${admLoginResponse.body.token}`)
+      .send({ clientConfirmed: true, providerConfirmed: true });
 
     const service = await request(app)
       .post(`/service`)
@@ -92,15 +95,15 @@ describe("/servicesFeedbacks", () => {
     expect(response.body.comment).toBe(mockedFeedback.comment);
   });
 
-  //   test("POST servicesFeedbacks - Um provider não deve conseguir enviar mais de um feedback a um usuário", async () => {
-  //     const response = await request(app)
-  //       .post("/servicesFeedbacks")
-  //       .set("Authorization", `Bearer ${providerLoginResponse.body.token}`)
-  //       .send({ ...mockedFeedback, userId: admId });
+    test("POST servicesFeedbacks - Um usuário não deve conseguir enviar mais que um feedback a um serviço", async () => {
+      const response = await request(app)
+        .post("/servicesFeedbacks")
+        .set("Authorization", `Bearer ${admLoginResponse.body.token}`)
+        .send({ ...mockedFeedback, providerId, serviceId });
 
-  //     expect(response.status).toBe(400);
-  //     expect(response.body).toHaveProperty("message");
-  //   });
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty("message");
+    });
 
   //   test("POST servicesFeedbacks - User não deve conseguir enviar um feedback a um usuário", async () => {
   //     const response = await request(app)

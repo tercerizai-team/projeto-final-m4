@@ -58,7 +58,7 @@ export class Users {
 
   @OneToMany(
     () => ServicesFeedbacks,
-    (serviceFeedbacks) => serviceFeedbacks.service
+    (serviceFeedbacks) => serviceFeedbacks.user
   )
   givedfeedbacks: ServicesFeedbacks[];
 
