@@ -38,7 +38,7 @@ describe("/providers", () => {
         const response = await request(app).post("/providers").send(mockedProviderWithoutAddress)
 
         expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty("error")
+        expect(response.body).toHaveProperty("message")
 
     })
 

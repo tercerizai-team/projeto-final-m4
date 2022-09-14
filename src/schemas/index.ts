@@ -1,4 +1,4 @@
-import * as yup from "yup";
+/*import * as yup from "yup";
 import { SchemaOf } from "yup";
 import {
   adress,
@@ -22,4 +22,4 @@ const providerSchema: SchemaOf<IProviderRequest> = yup.object().shape({
   }),
 });
 
-export { providerSchema };
+export { providerSchema };*/
