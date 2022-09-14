@@ -2,7 +2,7 @@ import { DataSource } from "typeorm"
 import AppDataSource from "../../../data-source"
 import request from "supertest"
 import app from "../../../app";
-import { mockedAddress, mockedClientConfirmedUpdate, mockedProvider, mockedSchedule, mockedUserAdm, mockedUserNotAdm } from "../../mocks";
+import { mockedAddress, mockedClientConfirmedUpdate, mockedProvider, mockedSchedule, mockedServiceUpdate, mockedUserAdm, mockedUserNotAdm } from "../../mocks";
 
 
 describe("/users", () => {
@@ -55,7 +55,6 @@ describe("/users", () => {
         const userLogin = await request(app).post("/login").send(mockedUserNotAdm)
         await request(app).post("/login").send(mockedUserAdm)
         const response = await request(app).get("/service").set("Authorization", `Bearer ${userLogin.body.token}`)
-        console.log(response.body)
 
         expect(response.status).toBe(200)
 
@@ -72,7 +71,48 @@ describe("/users", () => {
 
     })
 
+    test("PATCH /service/:id - deve ser capaz de atualizar os dados de um serviço", async () => {
 
+        const userLogin = await request(app).post("/login").send(mockedUserNotAdm)
+        const userAdmLogin = await request(app).post("/login").send(mockedUserAdm)
+        const serviceInfo = await request(app).get("/service").set("Authorization", `Bearer ${userLogin.body.token}`)
+        const response = await request(app).patch(`/service/${serviceInfo.body.id}`).set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedServiceUpdate)
 
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("isServiceCanceled")
+        expect(response.body.isServiceCanceled).toBe(true)
+
+    })
+
+    test("PATCH /service/:id - não deveria ser capaz de atualizar os dados de um serviço com id inválido", async () => {
+
+        const userAdmLogin = await request(app).post("/login").send(mockedUserAdm)
+        const response = await request(app).patch(`/service/123`).set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedServiceUpdate)
+
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty("message")
+
+    })
+
+    test("DELETE /service/:id - deve ser capaz de deletar um serviço", async () => {
+
+        const userLogin = await request(app).post("/login").send(mockedUserNotAdm)
+        const userAdmLogin = await request(app).post("/login").send(mockedUserAdm)
+        const serviceInfo = await request(app).get("/service").set("Authorization", `Bearer ${userLogin.body.token}`)
+        const response = await request(app).delete(`/service/${serviceInfo.body.id}`).set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedServiceUpdate)
+
+        expect(response.status).toBe(200)
+
+    })
+
+    test("DELETE /service/:id - não deveria ser capaz de deletar um serviço com id inválido", async () => {
+
+        const userAdmLogin = await request(app).post("/login").send(mockedUserAdm)
+        const response = await request(app).delete(`/service/123`).set("Authorization", `Bearer ${userAdmLogin.body.token}`).send(mockedServiceUpdate)
+
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty("message")
+
+    })
 
 })

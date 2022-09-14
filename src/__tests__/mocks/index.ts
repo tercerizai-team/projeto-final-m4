@@ -191,3 +191,9 @@ export const mockedClientConfirmedUpdate = {
   providerConfirmed: true
 
 }
+
+export const mockedServiceUpdate = {
+
+  isServiceCanceled: true
+
+}
