@@ -50,11 +50,11 @@ const createServiceFeedbackService = async (
   }
 
   if (!service.isServiceFinished) {
-    throw new AppError('Service is not finished to feedback')
+    throw new AppError("Service is not finished to feedback");
   }
 
-  if(service.schedule.user.id !== userId){
-    throw new AppError("User not related to the schedule")
+  if (service.schedule.user.id !== userId) {
+    throw new AppError("User not related to the schedule");
   }
 
   const userGivenFeedbacks = user.givedfeedbacks;
@@ -70,7 +70,7 @@ const createServiceFeedbackService = async (
     }
   });
 
-  const serviceFeedback = await servicesFeedbacksRepository.save({
+  const serviceFeedback: any = await servicesFeedbacksRepository.save({
     note,
     comment,
     service,
@@ -78,16 +78,10 @@ const createServiceFeedbackService = async (
     user,
   });
 
-  const returnObj: any = {
-    note,
-    comment,
-    service
-  }
+  delete serviceFeedback.service.schedule.provider;
+  delete serviceFeedback.service.schedule.user;
 
-  delete returnObj.service.schedule.provider
-  delete returnObj.service.schedule.user
-
-  return returnObj;
+  return serviceFeedback;
 };
 
 export default createServiceFeedbackService;

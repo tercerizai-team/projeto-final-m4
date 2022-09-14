@@ -9,9 +9,9 @@ export const createUserService = async ({name, email, password, phone, isAdm}: I
     const users = await userRepository.find()
     const emailAlreadyExists = users.find(user => user.email === email)
 
+
     if(emailAlreadyExists){
-        throw new AppError("user already exists", 400);
-        
+        throw new AppError("user already exists", 400); 
     }
    
     const createdAt = new Date()
