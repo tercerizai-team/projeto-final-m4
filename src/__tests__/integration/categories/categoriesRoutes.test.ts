@@ -84,8 +84,7 @@ describe("/categories", () => {
       .send(mockedCategoryUpdate);
 
     expect(responseAdm.status).toBe(200);
-    expect(responseAdm.body).toHaveProperty("name");
-    expect(responseAdm.body.name).toBe(mockedCategoryUpdate.name);
+    expect(responseAdm.body).toHaveProperty("message")
   });
 
   test("PATCH categories - Um usuário normal não deve poder editar uma categoria", async () => {
