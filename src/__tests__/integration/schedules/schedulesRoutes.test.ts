@@ -92,7 +92,7 @@ describe("/providers", () => {
         const userInfo = await request(app).get("/users").set("Authorization", `Bearer ${admLoginInfo.body.token}`)
         const response = await request(app).patch("/schedule/123").set("Authorization", `Bearer ${userLogin.body.token}`).send(mockedScheduleUpdate)
 
-        expect(response.status).toBe(400)
+        expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")
         
     })
