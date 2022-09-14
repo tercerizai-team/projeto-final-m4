@@ -69,7 +69,9 @@ const updateScheduleService = async (
     serviceDate,
     serviceDescription,
     value,
-    finishServiceHour
+    finishServiceHour,
+    clientConfirmed,
+    providerConfirmed
   };
 
   if(userId === findSchedule?.user.id){
@@ -79,6 +81,8 @@ const updateScheduleService = async (
   if(userId === findSchedule?.provider.id){
     newSchedule.providerConfirmed = providerConfirmed
   }
+
+  console.log(newSchedule)
 
   await scheduleRepository.update({ id }, newSchedule);
 
