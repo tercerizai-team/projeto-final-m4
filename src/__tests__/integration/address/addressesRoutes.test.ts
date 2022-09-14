@@ -83,7 +83,7 @@ describe("/providers", () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserNotAdm);
         await request(app).post("/address").send(mockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
         const addressToDelete = await request(app).get(`/address`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-        const response = await request(app).delete(`/address/${addressToDelete.body.address.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        const response = await request(app).delete(`/address/${addressToDelete.body[0].address.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("message")
@@ -109,7 +109,7 @@ describe("/providers", () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserNotAdm);
         const newAddress = await request(app).post("/address").send(twoMockedAddress).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
         const addressToDelete = await request(app).get(`/address`).set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-        const response = await request(app).patch(`/address/${addressToDelete.body.address.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAddressUpdate)
+        const response = await request(app).patch(`/address/${addressToDelete.body[0].address.id}`).set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(mockedAddressUpdate)
 
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("state")

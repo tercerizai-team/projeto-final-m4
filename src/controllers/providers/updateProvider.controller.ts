@@ -1,3 +1,4 @@
+import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import { updateProviderService } from "../../services/providers/updateProvider.services";
 
@@ -13,5 +14,5 @@ export const updateProviderController = async (req: Request, res: Response) => {
     isAdm,
     providerId
   );
-  return res.json(newProvider);
+  return res.json(instanceToPlain(newProvider));
 };

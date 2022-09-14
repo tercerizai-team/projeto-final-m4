@@ -69,7 +69,9 @@ const updateScheduleService = async (
     serviceDate,
     serviceDescription,
     value,
-    finishServiceHour
+    finishServiceHour,
+    clientConfirmed: findSchedule.clientConfirmed,
+    providerConfirmed: findSchedule.providerConfirmed
   };
 
   if(userId === findSchedule?.user.id){

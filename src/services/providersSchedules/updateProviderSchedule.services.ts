@@ -29,10 +29,9 @@ const updateProviderScheduleService = async (
     id: providerSchedule!.dayHours.id,
   });
 
-  const allProvidersSchedules = await providersSchedulesRepository.find()
+  const allProvidersSchedules = await providersSchedulesRepository.find({relations: {provider: true}})
 
   const providerSchedulesByDay = allProvidersSchedules.filter(providerSched => providerSched.dayHours.day === providerSchedule.dayHours.day)
-
   
   const initDate = new Date()
   if(!initHour){

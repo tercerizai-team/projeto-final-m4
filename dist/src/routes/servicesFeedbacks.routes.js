@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const createServiceFeedback_controller_1 = require("../controllers/servicesFeedbacks/createServiceFeedback.controller");
+const deleteServiceFeedback_controller_1 = require("../controllers/servicesFeedbacks/deleteServiceFeedback.controller");
+const listProviderFeedbacks_controller_1 = require("../controllers/servicesFeedbacks/listProviderFeedbacks.controller");
+const updateServiceFeedback_controller_1 = require("../controllers/servicesFeedbacks/updateServiceFeedback.controller");
+const authUser_middleware_1 = require("../middlewares/authUser.middleware");
+const isAdm_middleware_1 = require("../middlewares/isAdm.middleware");
+const servicesFeedbacksRoutes = (0, express_1.Router)();
+servicesFeedbacksRoutes.post("", authUser_middleware_1.authUserMiddleware, createServiceFeedback_controller_1.createServiceFeedbackController);
+servicesFeedbacksRoutes.get("/:id", authUser_middleware_1.authUserMiddleware, listProviderFeedbacks_controller_1.listProviderFeedbacksController);
+servicesFeedbacksRoutes.patch("/:id", authUser_middleware_1.authUserMiddleware, isAdm_middleware_1.isAdmMiddleware, updateServiceFeedback_controller_1.updateServiceFeedbackController);
+servicesFeedbacksRoutes.delete("/:id", authUser_middleware_1.authUserMiddleware, isAdm_middleware_1.isAdmMiddleware, deleteServiceFeedback_controller_1.deleteServiceFeedbackController);
+exports.default = servicesFeedbacksRoutes;

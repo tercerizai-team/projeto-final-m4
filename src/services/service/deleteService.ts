@@ -31,5 +31,11 @@ export const deleteServiceService = async (
     }
   }
 
-  return serviceRepository.delete(service.id);
+  await serviceRepository.delete(service.id);
+
+  const message = {
+    message: "Service deleted"
+  }
+
+  return message
 };

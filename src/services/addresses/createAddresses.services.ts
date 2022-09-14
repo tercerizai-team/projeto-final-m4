@@ -5,6 +5,7 @@ import AppError from "../../errors/AppError";
 import { v4 as uuid } from "uuid";
 import { AddressesUsers } from "../../entities/addresses_users.entity";
 import { Users } from "../../entities/users.entity";
+//import { addMethod } from "yup";
 
 const createAddressesService = async (
   {
@@ -18,6 +19,11 @@ const createAddressesService = async (
   }: IAdressRequest,
   userId: string
 ) => {
+
+  if(!zipCode || zipCode.length !== 8){
+    throw new AppError("zipCode precisa possuir 8 dígitos");
+  }
+
   const addressesRepository = AppDataSource.getRepository(Addresses);
   const address = await addressesRepository.find();
 
@@ -49,15 +55,9 @@ const createAddressesService = async (
       user: user,
     };
 
-    const streetAlreadyExists = address.find(
-      (address) => address.street === street
-    );
+    const addressAlreadyExists = address.find(address => address.street === street && address.number === number && address.zipCode === zipCode)
 
-    const numberAlreadyExists = address.find(
-      (address) => address.number === number
-    );
-
-    if (streetAlreadyExists && numberAlreadyExists) {
+    if (addressAlreadyExists) {
       throw new AppError("address already exists", 400);
     }
     addressUserRepository.create(newPivotAddress);

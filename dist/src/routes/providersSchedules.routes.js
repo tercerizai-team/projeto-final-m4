@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const deleteProviderSchedule_controller_1 = require("../controllers/providersSchedules/deleteProviderSchedule.controller");
+const listProviderSchedule_controller_1 = require("../controllers/providersSchedules/listProviderSchedule.controller");
+const providersSchedules_controllers_1 = require("../controllers/providersSchedules/providersSchedules.controllers");
+const updateProviderSchedule_controller_1 = require("../controllers/providersSchedules/updateProviderSchedule.controller");
+const authUser_middleware_1 = require("../middlewares/authUser.middleware");
+const providerSchedulesRoutes = (0, express_1.Router)();
+providerSchedulesRoutes.post("", authUser_middleware_1.authUserMiddleware, providersSchedules_controllers_1.createNewProviderScheduleController);
+providerSchedulesRoutes.delete("/:id", authUser_middleware_1.authUserMiddleware, deleteProviderSchedule_controller_1.deleteProviderScheduleController);
+providerSchedulesRoutes.patch("/:id", authUser_middleware_1.authUserMiddleware, updateProviderSchedule_controller_1.updateProviderScheduleController);
+providerSchedulesRoutes.get("", authUser_middleware_1.authUserMiddleware, listProviderSchedule_controller_1.listAllProviderSchedulesController);
+exports.default = providerSchedulesRoutes;

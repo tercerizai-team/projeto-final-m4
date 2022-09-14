@@ -10,9 +10,11 @@ export const loginUserService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(Users);
   const providerRepository = AppDataSource.getRepository(Providers)
   let account:Users | Providers | null = await userRepository.findOne({ where: { email: email } });
+  let isProvider = false
 
   if (!account) {
     account = await providerRepository.findOne({ where: { email: email } });
+    isProvider = true
   }
 
   if (!account) {
@@ -41,5 +43,7 @@ export const loginUserService = async ({ email, password }: IUserLogin) => {
     }
   );
 
-  return token;
+  const returnObj = {token, isProvider}
+
+  return returnObj;
 };
