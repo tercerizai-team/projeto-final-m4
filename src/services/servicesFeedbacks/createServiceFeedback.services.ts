@@ -49,6 +49,10 @@ const createServiceFeedbackService = async (
     throw new AppError("Service not found", 404);
   }
 
+  if (!service.isServiceFinished) {
+    throw new AppError('Service is not finished to feedback')
+  }
+
   if(service.schedule.user.id !== userId){
     throw new AppError("User not related to the schedule")
   }
@@ -74,7 +78,16 @@ const createServiceFeedbackService = async (
     user,
   });
 
-  return serviceFeedback;
+  const returnObj: any = {
+    note,
+    comment,
+    service
+  }
+
+  delete returnObj.service.schedule.provider
+  delete returnObj.service.schedule.user
+
+  return returnObj;
 };
 
 export default createServiceFeedbackService;
