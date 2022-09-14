@@ -5,16 +5,11 @@ import { createNewProviderScheduleController } from "../controllers/providersSch
 import { updateProviderScheduleController } from "../controllers/providersSchedules/updateProviderSchedule.controller";
 import { authUserMiddleware } from "../middlewares/authUser.middleware"
 
-import { isTheOwnerOrAdmMiddleware } from "../middlewares/isTheOwnerOrAdm.middleware";
-
-
 const providerSchedulesRoutes = Router()
 
-
 providerSchedulesRoutes.post("", authUserMiddleware, createNewProviderScheduleController)
-providerSchedulesRoutes.delete("/:id", isTheOwnerOrAdmMiddleware, deleteProviderScheduleController)
-providerSchedulesRoutes.patch("/:id", isTheOwnerOrAdmMiddleware, updateProviderScheduleController)
+providerSchedulesRoutes.delete("/:id", authUserMiddleware, deleteProviderScheduleController)
+providerSchedulesRoutes.patch("/:id", authUserMiddleware, updateProviderScheduleController)
 providerSchedulesRoutes.get("", authUserMiddleware, listAllProviderSchedulesController)
-
 
 export default providerSchedulesRoutes
