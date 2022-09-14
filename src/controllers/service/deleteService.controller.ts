@@ -5,6 +5,6 @@ export const deleteServiceController = async (req: Request, res: Response) => {
   const userId = req.userId;
   const isAdm = req.userIsAdm;
   const serviceId = req.params.serviceId;
-  await deleteServiceService(serviceId, userId, isAdm);
-  return res.status(200).send();
+  const deleted = await deleteServiceService(serviceId, userId, isAdm);
+  return res.status(200).send(deleted);
 };
