@@ -31,21 +31,38 @@ export const updateServiceService = async (
     throw new AppError("Service not found", 404);
   }
 
-  if (
-    service.schedule.user.id !== userId ||
-    service.schedule.provider.id !== userId
-  ) {
-    if (!isAdm) {
-      throw new AppError("Not allowed", 401);
-    }
+  if (isAdm) {
+    
   }
 
-  const newService = {
-    isServiceFinished: isServiceFinished,
-    isServiceCanceled: isServiceCanceled,
-    clientFinished: clientFinished,
-    providerFinished: providerFinished,
+  let newService: any = {
+    isServiceFinished: service.isServiceFinished,
+    isServiceCanceled: service.isServiceCanceled,
+    clientFinished: service.clientFinished,
+    providerFinished: service.providerFinished,
   };
+
+  if (isAdm) {
+    newService.isServiceFinished = isServiceFinished
+    newService.isServiceCanceled = isServiceCanceled
+
+    newService.clientFinished = clientFinished
+    newService.providerFinished = providerFinished
+  }
+
+  if (userId === service.schedule.user.id) {
+    newService.clientFinished = clientFinished
+  }
+
+  if (userId === service.schedule.provider.id) {
+    newService.providerFinished = providerFinished
+  }
+
+  if (newService.clientFinished && newService.providerFinished) {
+    newService.isServiceFinished = true
+  } else {
+    newService.isServiceFinished = false
+  }
 
   await serviceRepository.update({ id: serviceId }, newService);
 
