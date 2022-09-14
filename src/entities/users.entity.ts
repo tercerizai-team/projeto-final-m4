@@ -13,6 +13,8 @@ import { UsersFeedbacks } from "./users_feedbacks.entity";
 import { v4 as uuid } from "uuid";
 import { ServicesFeedbacks } from "./services_feedbacks.entity";
 
+import { Exclude } from "class-transformer";
+
 @Entity("users")
 export class Users {
   @PrimaryGeneratedColumn("uuid")
@@ -25,6 +27,7 @@ export class Users {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
