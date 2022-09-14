@@ -5,7 +5,7 @@ import AppError from "../../errors/AppError";
 import { v4 as uuid } from "uuid";
 import { AddressesUsers } from "../../entities/addresses_users.entity";
 import { Users } from "../../entities/users.entity";
-import { addMethod } from "yup";
+//import { addMethod } from "yup";
 
 const createAddressesService = async (
   {

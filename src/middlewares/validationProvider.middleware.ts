@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+/*import { Request, Response, NextFunction } from "express";
 import { AnySchema } from "yup";
 
 const validationMiddleware =
@@ -16,4 +16,4 @@ const validationMiddleware =
     }
   };
 
-export { validationMiddleware };
+export { validationMiddleware };*/
