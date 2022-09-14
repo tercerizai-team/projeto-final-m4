@@ -1,10 +1,22 @@
 import { IAdressRequest } from "./address.interfaces"
 
-
 export interface IUserRequest {
     name: string
     email: string
     password: string
     phone: string
-    address: IAdressRequest
+    isAdm: boolean
+    // address: IAdressRequest
+}
+
+export interface IUserLogin {
+    email: string
+    password: string
+}
+
+export interface IUserEdit {
+    name?: string
+    email?: string
+    password?: string
+    phone?: string
 }
