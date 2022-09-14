@@ -3,8 +3,6 @@ import AppDataSource from "../../../data-source";
 import request from "supertest";
 import app from "../../../app";
 import {
-  mockedCategory,
-  mockedCategoryUpdate,
   mockedFeedback,
   mockedProvider,
   mockedProviderLogin,

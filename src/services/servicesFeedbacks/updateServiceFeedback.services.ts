@@ -15,7 +15,7 @@ const updateServiceFeedbackService = async (
   });
 
   if (!feedbackExists) {
-    throw new AppError("Feedback not found");
+    throw new AppError("Feedback not found", 404);
   }
 
   await servicesFeedbacksRepository.update(feedbackId, {

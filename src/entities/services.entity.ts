@@ -29,7 +29,7 @@ export class Services {
   @Column({ default: false })
   providerFinished: boolean;
 
-  @OneToOne(() => Schedules)
+  @OneToOne(() => Schedules, { eager: true })
   @JoinColumn()
   schedule: Schedules;
 

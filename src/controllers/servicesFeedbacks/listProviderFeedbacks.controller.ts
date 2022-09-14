@@ -6,6 +6,6 @@ export const listProviderFeedbacksController = async (
   res: Response
 ) => {
   const providerId = req.params.id;
-  const feedbacks = listProviderFeedbacksService(providerId);
+  const feedbacks = await listProviderFeedbacksService(providerId);
   return res.json(feedbacks);
 };

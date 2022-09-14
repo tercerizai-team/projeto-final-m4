@@ -21,12 +21,10 @@ export class ServicesFeedbacks {
   @Column({ length: 256 })
   comment: string;
 
-  @OneToOne(() => Users)
-  @JoinColumn()
+  @ManyToOne(() => Users)
   user: Users;
 
-  @OneToOne(() => Services)
-  @JoinColumn()
+  @ManyToOne(() => Services)
   service: Services;
 
   @ManyToOne(() => Providers)
