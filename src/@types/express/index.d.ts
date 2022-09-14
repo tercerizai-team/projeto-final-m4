@@ -8,8 +8,5 @@ declare global {
             userId: string,
             userIsAdm: boolean
         }
-        interface yup {
-            yup
-        }
     }
 }
