@@ -14,4 +14,6 @@ export interface IScheduleUpdate {
   serviceDescription?: string;
   value?: number;
   finishServiceHour?: Date;
+  clientConfirmed?: boolean
+  providerConfirmed?: boolean
 }

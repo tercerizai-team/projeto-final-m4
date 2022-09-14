@@ -184,3 +184,10 @@ export let mockedSchedule = {
 export const mockedScheduleUpdate = {
   hour:  "12:00"
 }
+
+export const mockedClientConfirmedUpdate = {
+
+  clientConfirmed: true,
+  providerConfirmed: true
+
+}
