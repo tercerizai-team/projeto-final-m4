@@ -24,10 +24,10 @@ const getServicesService = async (userId: string, userIsAdm: boolean) => {
   );
 
   if (userScheduleToGet) {
-    return userScheduleToGet.schedule.user;
+    return userScheduleToGet;
   }
   if (providerScheduleToGet) {
-    return providerScheduleToGet.schedule.provider;
+    return providerScheduleToGet;
   }
 
   if (!userScheduleToGet) {
