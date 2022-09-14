@@ -4,7 +4,7 @@ import { Providers } from "../../entities/providers.entity";
 import { ProviderSchedule } from "../../entities/provider_schedule.entity";
 import AppError from "../../errors/AppError";
 import { IProviderScheduleRequest } from "../../interfaces/providerSchedules.interfaces";
-import { v4 as uuid } from "uuid"
+import { v4 as uuid, validate } from "uuid"
 import { verifyHours } from "../../utils/verifyDate.utility";
 
 
@@ -19,7 +19,7 @@ export const createNewProviderScheduleService = async ({ day, initHour, limitHou
     const providersRepository = AppDataSource.getRepository(Providers)
 
     const providers = await providersRepository.find()
-    const providerSchedules = await providerSchedulesRepository.find()
+    const allProviderSchedules = await providerSchedulesRepository.find({ relations: {provider: true} })
 
     const validateUserId = providers.find(provider => provider.id === userId)
 
@@ -27,19 +27,21 @@ export const createNewProviderScheduleService = async ({ day, initHour, limitHou
         throw new AppError("provider not found", 404);
     }
 
-    const validateDaysHours = providerSchedules.filter((provSchedules) => {
+    const validateDaysHours = allProviderSchedules.filter((provSchedules) => {
         return provSchedules.dayHours.day === day && provSchedules.provider.id === userId
     })
 
     const splitedInitHour = initHour.split(":")
 
     const initDateNow = new Date()
-    initDateNow.setHours(parseInt(splitedInitHour[0]), parseInt(splitedInitHour[1]))
+    initDateNow.setHours(parseInt(splitedInitHour[0]))
+    initDateNow.setMinutes(parseInt(splitedInitHour[1]))
 
     const splitedLimitHour = limitHour.split(":")
 
     const limitDateNow = new Date()
-    limitDateNow.setHours(parseInt(splitedLimitHour[0]), parseInt(splitedLimitHour[1]))
+    limitDateNow.setHours(parseInt(splitedLimitHour[0]))
+    limitDateNow.setMinutes(parseInt(splitedLimitHour[1]))
 
     let hourIsValid = false
     let dayIsValid = true
