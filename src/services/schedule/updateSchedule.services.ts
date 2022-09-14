@@ -82,6 +82,11 @@ const updateScheduleService = async (
     newSchedule.providerConfirmed = providerConfirmed
   }
 
+  if(isAdm){
+    newSchedule.clientConfirmed = clientConfirmed
+    newSchedule.providerConfirmed = providerConfirmed
+  }
+
   await scheduleRepository.update({ id }, newSchedule);
 
   const updatedSchedule = await scheduleRepository.findOne({

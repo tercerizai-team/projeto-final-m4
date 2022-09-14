@@ -77,11 +77,12 @@ describe("/servicesFeedbacks", () => {
 
     serviceId = service.body.id;
 
-    await request(app)
+
+    const test = await request(app)
       .patch(`/service/${serviceId}`)
       .set("Authorization", `Bearer ${admLoginResponse.body.token}`)
-      .send({ isServiceFinished: true });
-      
+      .send({ isServiceFinished: true, clientFinished: true ,providerFinished: true });
+
   });
 
   afterAll(async () => {
@@ -95,7 +96,6 @@ describe("/servicesFeedbacks", () => {
       .send({ ...mockedFeedback, providerId, serviceId });
 
     feedbackId = response.body.id;
-    console.log(response.body)
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("note");

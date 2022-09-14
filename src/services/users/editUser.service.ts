@@ -7,8 +7,7 @@ import bcrypt from "bcryptjs"
 
 
 
-export const editUserService = async ({name, email, password, phone, isAdmBody}: IUserEdit, isAdm: boolean, id: string, userId: string) => {
-
+export const editUserService = async ({name, email, password, phone}: IUserEdit, isAdm: boolean, id: string, userId: string) => {
     const userRepository = AppDataSource.getRepository(Users)
 
     if (userId !== id && isAdm === false){
@@ -41,9 +40,9 @@ export const editUserService = async ({name, email, password, phone, isAdmBody}:
         updatedAt: new Date()
     }
 
-    if (isAdm && isAdmBody === true) {
-        newDataUser.isAdm = isAdmBody
-    }
+    // if (isAdm && isAdmBody === true) {
+    //     newDataUser.isAdm = isAdmBody
+    // }
 
     await userRepository.update({id}, newDataUser)
 

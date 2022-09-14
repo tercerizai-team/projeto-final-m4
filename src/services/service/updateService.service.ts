@@ -31,9 +31,7 @@ export const updateServiceService = async (
     throw new AppError("Service not found", 404);
   }
 
-  if (isAdm) {
-    
-  }
+
 
   let newService: any = {
     isServiceFinished: service.isServiceFinished,
@@ -54,6 +52,7 @@ export const updateServiceService = async (
     newService.clientFinished = clientFinished
   }
 
+
   if (userId === service.schedule.provider.id) {
     newService.providerFinished = providerFinished
   }
@@ -67,6 +66,7 @@ export const updateServiceService = async (
   await serviceRepository.update({ id: serviceId }, newService);
 
   const updatedService = await serviceRepository.findOneBy({ id: serviceId });
+
 
   return updatedService;
 };
