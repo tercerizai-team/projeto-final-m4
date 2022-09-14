@@ -29,6 +29,10 @@ export const registerProviderCategoryService = async (categoryId: string, provid
     const provider: any = providers.find(prov => prov.id === providerId)
     const category: any = categories.find(cat => cat.id === categoryId)
 
+    if(!category){
+        throw new AppError("categoria não encontrada", 404);
+    }
+
     const newProviderCategory: CategoryProvider = {
         id: uuid(),
         category,
