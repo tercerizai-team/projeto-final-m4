@@ -16,6 +16,7 @@ import { Schedules } from "./schedules.entity";
 import { ServicesFeedbacks } from "./services_feedbacks.entity";
 import { UsersFeedbacks } from "./users_feedbacks.entity";
 import { v4 as uuid } from "uuid";
+import { Exclude } from "class-transformer";
 
 @Entity("providers")
 export class Providers {
@@ -29,6 +30,7 @@ export class Providers {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
