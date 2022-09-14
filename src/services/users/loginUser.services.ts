@@ -11,8 +11,10 @@ export const loginUserService = async ({ email, password }: IUserLogin) => {
   const providerRepository = AppDataSource.getRepository(Providers)
   let account:Users | Providers | null = await userRepository.findOne({ where: { email: email } });
 
+
   if (!account) {
     account = await providerRepository.findOne({ where: { email: email } });
+
   }
 
   if (!account) {
@@ -40,6 +42,8 @@ export const loginUserService = async ({ email, password }: IUserLogin) => {
       expiresIn: "2h",
     }
   );
+
+
 
   return token;
 };

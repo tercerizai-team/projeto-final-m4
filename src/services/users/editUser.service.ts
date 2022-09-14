@@ -8,13 +8,12 @@ import bcrypt from "bcryptjs"
 
 
 export const editUserService = async ({name, email, password, phone}: IUserEdit, isAdm: boolean, id: string, userId: string) => {
-
-
     const userRepository = AppDataSource.getRepository(Users)
 
     if (userId !== id && isAdm === false){
         throw new AppError("You are not allowed", 400)
     }
+    
 
     const account = await userRepository.findOneBy({id})
 
@@ -33,13 +32,17 @@ export const editUserService = async ({name, email, password, phone}: IUserEdit,
         hashedPassword = await bcrypt.hash(password, 10)
     }
 
-    const newDataUser = {
+    let newDataUser: any = {
         name: name,
         email: email,
         password: hashedPassword,
         phone: phone,
         updatedAt: new Date()
     }
+
+    // if (isAdm && isAdmBody === true) {
+    //     newDataUser.isAdm = isAdmBody
+    // }
 
     await userRepository.update({id}, newDataUser)
 
