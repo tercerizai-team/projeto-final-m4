@@ -30,16 +30,14 @@ A url base da API é:
 
 ### Caso esteja tudo ok a resposta será assim:
 
-`POST /login - FORMATO DA RESPOSTA - STATUS 201`
+`POST /login - FORMATO DA RESPOSTA - STATUS 200`
 
 O Token deverá receber:
 id do usuário
 isAdm
-userType: customer ou provider
 
 ```json
 {
-  "userId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDcxODM3NzYsImV4cCI6MTYwNzQ0Mjk3Niwic3ViIjoiMmE3NWUxMmQtZmQxYy00ODFkLWJhODgtNGQ4YjE3MTAzYjJhIn0.UY67X23mPYAAzT43uFWZDHPUakd2STo5w4AuOcppkyQ"
 }
 ```
@@ -52,8 +50,11 @@ userType: customer ou provider
 
 `POST /user - FORMATO DA REQUISIÇÃO`
 
+Na criação do usuário no frontEnd não será dada a opção do isAdm
+
 ```json
 {
+  "imageUrl": "url de imagem",
   "email": "exemplo@gmail.com",
   "name": "Mateus Willcox",
   "phone": "32098765456",
@@ -69,6 +70,7 @@ userType: customer ou provider
 ```json
 {
   "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
+  "imageUrl": "url de imagem",
   "email": "exemplo@gmail.com",
   "name": "Mateus Willcox",
   "phone": "32098765456",
@@ -96,14 +98,40 @@ Somente o próprio usuário ou o adm tem acesso a essa rota
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "email": "exemplo@gmail.com",
-  "name": "Matheus Willcox",
-  "phone": "32098765456",
-  "createdAt": "2020-12-05T14:38:02.019Z",
-  "updatedAt": "2020-12-05T14:38:02.019Z",
+  "id": "6cf9e0fc-ec9e-4624-8e7f-df41c2cc86c9",
+  "name": "Tales",
+  "email": "matheusfalse@gmail.com",
+  "password": "$2a$10$WJM9Yd0YLucBcEAdDFTCo.OlzYnJ2au/nepy/3KM2qfPynt0nty/2",
+  "phone": "88888888",
+  "imageUrl": null,
+  "isActive": true,
   "isAdm": false,
-  "addresses": [{}, {}]
+  "createdAt": "2022-09-13T19:22:19.769Z",
+  "updatedAt": "2022-09-13T19:22:19.769Z",
+  "schedules": [
+    {
+      "id": "7bc47403-efb0-46d9-9228-8a4e38ed7ba2",
+      "hour": "08:00:00",
+      "finishServiceHour": "20:00:00",
+      "serviceDate": "2020-12-03",
+      "createdAt": "2022-09-13T19:24:17.245Z",
+      "serviceDescription": "Arrumar o cano NA CASA DA MAE",
+      "value": "50.00",
+      "clientConfirmed": false,
+      "providerConfirmed": false,
+      "address": {
+        "id": "3d519d55-eb46-49fb-9480-1a18c9e07db8",
+        "state": "PE",
+        "city": "Recife",
+        "zipCode": "12345678",
+        "number": "2222",
+        "street": "rua 12222222222",
+        "district": "Teste",
+        "complement": null
+      }
+    }
+  ],
+  "feedbacks": []
 }
 ```
 
@@ -122,6 +150,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 ```json
 {
+  "imageUrl": "url de imagem",
   "email": "exemplo@gmail.com",
   "name": "Mateus Willcox",
   "password": "1234",
@@ -135,6 +164,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 ```json
 {
+  "imageUrl": "url de imagem",
   "email": "exemplo@gmail.com",
   "name": "Mateus Willcox",
   "phone": "32098765456",
@@ -198,11 +228,13 @@ Esta rota faz um soft delete do usuário
 
 ```json
 {
+  "imageUrl": "url de imagem",
   "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
   "email": "exemplo@gmail.com",
   "name": "Mateus Willcox",
   "phone": "32098765456",
   "isPremium": false,
+  "isActive": true,
   "address": {
     "state": "PE",
     "street": "Rua tal",
@@ -234,30 +266,29 @@ Somente o próprio usuário ou o adm tem acesso a essa rota
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "email": "exemplo@gmail.com",
-  "name": "Mateus Willcox",
+  "id": "5f0c4073-a5b4-47ec-b460-cd82823587ab",
+  "name": "Tales",
+  "email": "talesdapiscina2@gmail.com",
   "phone": "32098765456",
+  "imageUrl": null,
+  "isActive": true,
   "isPremium": false,
-  "addressId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "createdAt": "2020-12-05T14:38:02.019Z",
-  "updatedAt": "2020-12-05T14:38:02.019Z",
-  "addresses": {
-    "state": "PE",
-    "street": "Rua tal",
-    "district": "Bairro tal",
+  "createdAt": "2022-09-14T13:02:49.249Z",
+  "updatedAt": "2022-09-14T13:02:49.249Z",
+  "address": {
+    "id": "6b40b1d9-9873-4151-9f55-1536413f4930",
+    "state": "SP",
+    "city": "Praia Grande",
+    "zipCode": "12345678",
     "number": "32",
-    "complement": "Portão azul",
-    "city": "Recife",
-    "zipCode": "12345678"
+    "street": "Avenida paris2s22",
+    "district": "Bairro tal",
+    "complement": "Portão azul"
   },
-  "categories": [{}, {}],
-  "providerSchedule": {
-    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "limitHour": "08:00",
-    "initHour": "18:00",
-    "weekDays": [1, 2, 3, 4, 5]
-  }
+  "providerCategories": [],
+  "schedules": [],
+  "feedbacks": [],
+  "providerSchedule": []
 }
 ```
 
@@ -278,50 +309,92 @@ Irá retornar um array com todos os providers
 `GET /provider - FORMATO DA RESPOSTA - STATUS 200`
 
 ```json
-[
-  {
-    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "email": "exemplo@gmail.com",
-    "name": "Mateus Willcox",
-    "phone": "32098765456",
-    "isPremium": false,
-    "addressId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "createdAt": "2020-12-05T14:38:02.019Z",
-    "updatedAt": "2020-12-05T14:38:02.019Z",
-    "addresses": {
-      "state": "PE",
-      "district": "Bairro tal",
-      "city": "Recife"
-    },
-    "categories": [{}, {}],
-    "schedule": {
-      "limitHour": "08:00",
-      "initHour": "18:00",
-      "weekDays": [1, 2, 3, 4, 5]
-    }
-  },
-  {
-    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "email": "exemplo@gmail.com",
-    "name": "Mateus Willcox",
-    "phone": "32098765456",
-    "isPremium": false,
-    "addressId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "createdAt": "2020-12-05T14:38:02.019Z",
-    "updatedAt": "2020-12-05T14:38:02.019Z",
-    "addresses": {
-      "state": "PE",
-      "district": "Bairro tal",
-      "city": "Recife"
-    },
-    "categories": [{}, {}],
-    "schedule": {
-      "limitHour": "08:00",
-      "initHour": "18:00",
-      "weekDays": [1, 2, 3, 4, 5]
-    }
-  }
-]
+
+	{
+		"id": "7b142e0e-c89c-4600-a7b8-29c48c87c60a",
+		"name": "Tales",
+		"email": "tales@gmail.com.br",
+		"phone": "32098765456",
+		"imageUrl": null,
+		"isActive": true,
+		"isPremium": false,
+		"createdAt": "2022-09-13T17:43:45.444Z",
+		"updatedAt": "2022-09-13T17:43:45.444Z",
+		"address": {
+			"id": "55281d1a-5482-49a3-b9f3-88976848afd0",
+			"state": "SP",
+			"city": "Praia Grande",
+			"zipCode": "12345678",
+			"number": "32",
+			"street": "Avenida pariss",
+			"district": "Bairro tal",
+			"complement": "Portão azul"
+		},
+		"providerCategories": [],
+		"schedules": [
+			{
+				"id": "2dda45b9-922a-4480-baad-af065ea2a608",
+				"hour": "08:00:00",
+				"finishServiceHour": "20:00:00",
+				"serviceDate": "2020-12-05",
+				"createdAt": "2022-09-13T17:54:57.903Z",
+				"serviceDescription": "Arrumar o cano",
+				"value": "50.00",
+				"clientConfirmed": false,
+				"providerConfirmed": false,
+				"address": {
+					"id": "4b8e7106-f3cf-4570-8156-dc8d8abfa32b",
+					"state": "PE",
+					"city": "Recife",
+					"zipCode": "12345678",
+					"number": "22",
+					"street": "rua 12",
+					"district": "Teste",
+					"complement": null
+				}
+      , 	{
+		"id": "7b142e0e-c89c-4600-a7b8-29c48c87c60a",
+		"name": "Tales",
+		"email": "tales@gmail.com.br",
+		"phone": "32098765456",
+		"imageUrl": null,
+		"isActive": true,
+		"isPremium": false,
+		"createdAt": "2022-09-13T17:43:45.444Z",
+		"updatedAt": "2022-09-13T17:43:45.444Z",
+		"address": {
+			"id": "55281d1a-5482-49a3-b9f3-88976848afd0",
+			"state": "SP",
+			"city": "Praia Grande",
+			"zipCode": "12345678",
+			"number": "32",
+			"street": "Avenida pariss",
+			"district": "Bairro tal",
+			"complement": "Portão azul"
+		},
+		"providerCategories": [],
+		"schedules": [
+			{
+				"id": "2dda45b9-922a-4480-baad-af065ea2a608",
+				"hour": "08:00:00",
+				"finishServiceHour": "20:00:00",
+				"serviceDate": "2020-12-05",
+				"createdAt": "2022-09-13T17:54:57.903Z",
+				"serviceDescription": "Arrumar o cano",
+				"value": "50.00",
+				"clientConfirmed": false,
+				"providerConfirmed": false,
+				"address": {
+					"id": "4b8e7106-f3cf-4570-8156-dc8d8abfa32b",
+					"state": "PE",
+					"city": "Recife",
+					"zipCode": "12345678",
+					"number": "22",
+					"street": "rua 12",
+					"district": "Teste",
+					"complement": null
+				}
+  ]
 ```
 
 #
@@ -353,12 +426,30 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 ```json
 {
-  "email": "exemplo@gmail.com",
-  "name": "Mateus Willcox",
+  "id": "5f0c4073-a5b4-47ec-b460-cd82823587ab",
+  "name": "Tales Carneiro da Silva",
+  "email": "talesdapiscina2@gmail.com",
+  "password": "$2a$10$9XxSW8..b.MlAg1ey7.50.3GYUoaFUIX7pmhxhwP9cY1mGLUIu6Rq",
   "phone": "32098765456",
-  "createdAt": "2020-12-05T14:38:02.019Z",
-  "updatedAt": "2020-13-05T14:38:02.019Z",
-  "isPremium": false
+  "imageUrl": null,
+  "isActive": true,
+  "isPremium": false,
+  "createdAt": "2022-09-14T13:02:49.249Z",
+  "updatedAt": "2022-09-14T13:14:09.002Z",
+  "address": {
+    "id": "6b40b1d9-9873-4151-9f55-1536413f4930",
+    "state": "SP",
+    "city": "Praia Grande",
+    "zipCode": "12345678",
+    "number": "32",
+    "street": "Avenida paris2s22",
+    "district": "Bairro tal",
+    "complement": "Portão azul"
+  },
+  "providerCategories": [],
+  "schedules": [],
+  "feedbacks": [],
+  "providerSchedule": []
 }
 ```
 
@@ -429,26 +520,45 @@ Caso o usuário que está fazendo a requisição seja um customer as informaçõ
 
 #
 
-`GET /address/:addressId - FORMATO DA REQUISIÇÃO`
+`GET /address - FORMATO DA REQUISIÇÃO`
 
-Na requisição é necessário o TOKEN e o id do endereço na url
+Na requisição é necessário o TOKEN
 Somente o próprio usuário ou o adm tem acesso a essa rota
+Caso o token seja de usuário, lista todos os seus endereços, caso seja um token de adm, lista todos os endereços de todos os usuários.
 
 ### Caso esteja tudo ok a resposta será assim:
 
 `GET /address - FORMATO DA RESPOSTA - STATUS 200`
 
 ```json
-{
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "state": "PE",
-  "street": "Rua tal",
-  "district": "Bairro tal",
-  "number": "32",
-  "complement": "Portão azul",
-  "city": "Recife",
-  "zipCode": "12345678"
-}
+[
+  {
+    "id": "9fd15bc5-0b8f-4462-a597-06736aa98488",
+    "address": {
+      "id": "3d519d55-eb46-49fb-9480-1a18c9e07db8",
+      "state": "PE",
+      "city": "Recife",
+      "zipCode": "12345678",
+      "number": "2222",
+      "street": "rua 12222222222",
+      "district": "Teste",
+      "complement": null
+    }
+  },
+  {
+    "id": "fa4e979c-3103-47eb-ab66-368ff3c9a21f",
+    "address": {
+      "id": "a397cb04-f3a7-43fd-84d0-ea68bf00e1eb",
+      "state": "PE",
+      "city": "Recife",
+      "zipCode": "12345678",
+      "number": "2222",
+      "street": "rua teste 123",
+      "district": "Teste",
+      "complement": null
+    }
+  }
+]
 ```
 
 #
@@ -596,8 +706,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "name": "encanador"
+  "message": "Category updated"
 }
 ```
 
@@ -641,7 +750,7 @@ Somente o próprio usuário e o adm tem acesso a essa rota
 {
   "limitHour": "08:00",
   "initHour": "18:00",
-  "weekDays": [1, 2, 3, 4, 5]
+  "day": 4
 }
 ```
 
@@ -651,11 +760,39 @@ Somente o próprio usuário e o adm tem acesso a essa rota
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "limitHour": "08:00",
-  "initHour": "18:00",
-  "weekDays": [1, 2, 3, 4, 5],
-  "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+  "id": "cc909411-c4cc-4efa-9fea-f21c368e080e",
+  "dayHours": {
+    "id": "a77d7823-4a75-407f-a6c2-5d94c87ad76c",
+    "day": 4,
+    "initHour": "2022-09-14T12:00:15.271Z",
+    "limitHour": "2022-09-14T15:00:15.281Z"
+  },
+  "provider": {
+    "id": "af04a62f-ce5a-4764-8bc5-10ead4fbe92e",
+    "name": "Tales",
+    "email": "provider@provider.com",
+    "password": "$2a$10$MQ9JlWdvFBueddI09OIq5urGxxgQ2oiIdBaHVStp2kR2/0XASvzXq",
+    "phone": "32098765456",
+    "imageUrl": null,
+    "isActive": true,
+    "isPremium": false,
+    "createdAt": "2022-09-14T16:34:04.912Z",
+    "updatedAt": "2022-09-14T16:34:04.912Z",
+    "address": {
+      "id": "6db4d545-ce4d-4004-b299-a2592f0ecb1a",
+      "state": "SP",
+      "city": "Praia Grande",
+      "zipCode": "12345678",
+      "number": "32",
+      "street": "Avenida p",
+      "district": "Bairro tal",
+      "complement": "Portão azul"
+    },
+    "providerCategories": [],
+    "schedules": [],
+    "feedbacks": [],
+    "providerSchedule": []
+  }
 }
 ```
 
@@ -676,7 +813,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 {
   "limitHour": "08:00",
   "initHour": "18:00",
-  "weekDays": [1, 2, 3, 4, 5]
+  "day": 4
 }
 ```
 
@@ -686,10 +823,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "limitHour": "08:00",
-  "initHour": "18:00",
-  "weekDays": [1, 2, 3, 4, 5]
+  "message": "Day hours updated"
 }
 ```
 
@@ -733,9 +867,12 @@ Na criação da schedule é necessário passar o id do usuário
   "hour": "08:00",
   "serviceDate": "2020-12-05",
   "description": "Arrumar o cano",
-  "value": 50.0,
-  "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "addressId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+  "value": 0,
+  "clientConfirmed": false,
+  "providerConfirmed": false,
+  "finishServiceHour": "20:00",
+  "providerId": "af04a62f-ce5a-4764-8bc5-10ead4fbe92e",
+  "addressId": "6db4d545-ce4d-4004-b299-a2592f0ecb1a"
 }
 ```
 
@@ -745,25 +882,63 @@ Na criação da schedule é necessário passar o id do usuário
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
   "hour": "08:00",
+  "finishServiceHour": "20:00",
   "serviceDate": "2020-12-05",
-  "createdAt": "2020-12-05T14:38:02.019Z",
-  "description": "Arrumar o cano",
-  "value": 50.0,
-  "clientConfirmed": false,
-  "providerConfirmed": false,
-  "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
+  "serviceDescription": "Arrumar o cano",
+  "value": 50,
+  "provider": {
+    "id": "af04a62f-ce5a-4764-8bc5-10ead4fbe92e",
+    "name": "Tales",
+    "email": "provider@provider.com",
+    "phone": "32098765456",
+    "imageUrl": null,
+    "isActive": true,
+    "isPremium": false,
+    "createdAt": "2022-09-14T16:34:04.912Z",
+    "updatedAt": "2022-09-14T16:34:04.912Z",
+    "address": {
+      "id": "6db4d545-ce4d-4004-b299-a2592f0ecb1a",
+      "state": "SP",
+      "city": "Praia Grande",
+      "zipCode": "12345678",
+      "number": "32",
+      "street": "Avenida p",
+      "district": "Bairro tal",
+      "complement": "Portão azul"
+    },
+    "providerCategories": [],
+    "schedules": [],
+    "feedbacks": [],
+    "providerSchedule": []
+  },
   "address": {
-    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "state": "PE",
-    "street": "Rua tal",
-    "district": "Bairro tal",
+    "id": "6db4d545-ce4d-4004-b299-a2592f0ecb1a",
+    "state": "SP",
+    "city": "Praia Grande",
+    "zipCode": "12345678",
     "number": "32",
-    "complement": "Portão azul",
-    "city": "Recife",
-    "zipCode": "12345678"
-  }
+    "street": "Avenida p",
+    "district": "Bairro tal",
+    "complement": "Portão azul"
+  },
+  "user": {
+    "id": "9d16907e-f21f-4b16-8568-f15640d7dec1",
+    "name": "Tales",
+    "email": "user@user.com",
+    "phone": "88888888",
+    "imageUrl": null,
+    "isActive": true,
+    "isAdm": false,
+    "createdAt": "2022-09-14T13:39:24.729Z",
+    "updatedAt": "2022-09-14T13:39:24.729Z",
+    "schedules": [],
+    "feedbacks": []
+  },
+  "id": "7ef1b6fd-3646-4837-9f51-5b8bc5dbae3f",
+  "createdAt": "2022-09-14T16:41:14.672Z",
+  "clientConfirmed": false,
+  "providerConfirmed": false
 }
 ```
 
@@ -775,7 +950,7 @@ Na criação da schedule é necessário passar o id do usuário
 
 `GET /schedule/:scheduleId - FORMATO DA REQUISIÇÃO`
 
-Na requisição é necessário o TOKEN e só pode ser acessado pelos usuários envolvidos ou um adm
+Na requisição é necessário o TOKEN e só pode ser acessado pelo usuário e provider envolvidos ou um adm
 
 Essa requisição não requer um corpo
 
@@ -785,25 +960,88 @@ Essa requisição não requer um corpo
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "hour": "08:00",
+  "id": "7ef1b6fd-3646-4837-9f51-5b8bc5dbae3f",
+  "hour": "08:00:00",
+  "finishServiceHour": "20:00:00",
   "serviceDate": "2020-12-05",
-  "createdAt": "2020-12-05T14:38:02.019Z",
-  "description": "Arrumar o cano",
-  "value": 50.0,
+  "createdAt": "2022-09-14T16:41:14.672Z",
+  "serviceDescription": "Arrumar o cano",
+  "value": "50.00",
   "clientConfirmed": false,
   "providerConfirmed": false,
-  "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "userId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
+  "user": {
+    "id": "9d16907e-f21f-4b16-8568-f15640d7dec1",
+    "name": "Tales",
+    "email": "user@user.com",
+    "password": "$2a$10$V/eEZMJAtR4Lb8sNEjCg3OJx2KaYglwd79HxoIFprYIYP1wyd2H2i",
+    "phone": "88888888",
+    "imageUrl": null,
+    "isActive": true,
+    "isAdm": false,
+    "createdAt": "2022-09-14T13:39:24.729Z",
+    "updatedAt": "2022-09-14T13:39:24.729Z",
+    "schedules": [
+      {
+        "id": "7ef1b6fd-3646-4837-9f51-5b8bc5dbae3f",
+        "hour": "08:00:00",
+        "finishServiceHour": "20:00:00",
+        "serviceDate": "2020-12-05",
+        "createdAt": "2022-09-14T16:41:14.672Z",
+        "serviceDescription": "Arrumar o cano",
+        "value": "50.00",
+        "clientConfirmed": false,
+        "providerConfirmed": false
+      }
+    ],
+    "feedbacks": []
+  },
+  "provider": {
+    "id": "af04a62f-ce5a-4764-8bc5-10ead4fbe92e",
+    "name": "Tales",
+    "email": "provider@provider.com",
+    "password": "$2a$10$MQ9JlWdvFBueddI09OIq5urGxxgQ2oiIdBaHVStp2kR2/0XASvzXq",
+    "phone": "32098765456",
+    "imageUrl": null,
+    "isActive": true,
+    "isPremium": false,
+    "createdAt": "2022-09-14T16:34:04.912Z",
+    "updatedAt": "2022-09-14T16:34:04.912Z",
+    "address": {
+      "id": "6db4d545-ce4d-4004-b299-a2592f0ecb1a",
+      "state": "SP",
+      "city": "Praia Grande",
+      "zipCode": "12345678",
+      "number": "32",
+      "street": "Avenida p",
+      "district": "Bairro tal",
+      "complement": "Portão azul"
+    },
+    "providerCategories": [],
+    "schedules": [
+      {
+        "id": "7ef1b6fd-3646-4837-9f51-5b8bc5dbae3f",
+        "hour": "08:00:00",
+        "finishServiceHour": "20:00:00",
+        "serviceDate": "2020-12-05",
+        "createdAt": "2022-09-14T16:41:14.672Z",
+        "serviceDescription": "Arrumar o cano",
+        "value": "50.00",
+        "clientConfirmed": false,
+        "providerConfirmed": false
+      }
+    ],
+    "feedbacks": [],
+    "providerSchedule": []
+  },
   "address": {
-    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "state": "PE",
-    "street": "Rua tal",
-    "district": "Bairro tal",
+    "id": "6db4d545-ce4d-4004-b299-a2592f0ecb1a",
+    "state": "SP",
+    "city": "Praia Grande",
+    "zipCode": "12345678",
     "number": "32",
-    "complement": "Portão azul",
-    "city": "Recife",
-    "zipCode": "12345678"
+    "street": "Avenida p",
+    "district": "Bairro tal",
+    "complement": "Portão azul"
   }
 }
 ```
@@ -816,7 +1054,7 @@ Essa requisição não requer um corpo
 
 `PATCH /schedule/:scheduleId - FORMATO DA REQUISIÇÃO`
 
-Na requisição é necessário o TOKEN e só pode ser acessado pelos usuários envolvidos ou um adm
+Na requisição é necessário o TOKEN e só pode ser acessado pelo usuário e provider envolvidos ou um adm
 
 Os campos que podem ser editados são os seguintes, não sendo necessário passar todas as informações, somente a que deseja editar.
 
@@ -837,13 +1075,87 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "hour": "08:00",
+  "id": "e17ecdd5-79a8-4f38-8180-78129441e032",
+  "hour": "08:00:00",
+  "finishServiceHour": "20:00:00",
   "serviceDate": "2020-12-05",
-  "description": "Arrumar o cano",
-  "value": 50.0,
-  "clientConfirmed": false,
-  "providerConfirmed": false
+  "createdAt": "2022-09-14T16:53:35.816Z",
+  "serviceDescription": "Arrumar o computador",
+  "value": "100.00",
+  "clientConfirmed": true,
+  "providerConfirmed": true,
+  "user": {
+    "id": "599b46b4-f4b7-48be-913b-9f034348c3ad",
+    "name": "Tales",
+    "email": "user@user.com",
+    "phone": "88888888",
+    "imageUrl": null,
+    "isActive": true,
+    "isAdm": false,
+    "createdAt": "2022-09-14T13:51:45.732Z",
+    "updatedAt": "2022-09-14T13:51:45.732Z",
+    "schedules": [
+      {
+        "id": "e17ecdd5-79a8-4f38-8180-78129441e032",
+        "hour": "08:00:00",
+        "finishServiceHour": "20:00:00",
+        "serviceDate": "2020-12-05",
+        "createdAt": "2022-09-14T16:53:35.816Z",
+        "serviceDescription": "Arrumar o computador",
+        "value": "100.00",
+        "clientConfirmed": true,
+        "providerConfirmed": true
+      }
+    ],
+    "feedbacks": []
+  },
+  "provider": {
+    "id": "90375916-6c93-4057-9204-19e8c4efd4ab",
+    "name": "Tales",
+    "email": "provider@provider.com",
+    "phone": "32098765456",
+    "imageUrl": null,
+    "isActive": true,
+    "isPremium": false,
+    "createdAt": "2022-09-14T16:51:40.129Z",
+    "updatedAt": "2022-09-14T16:51:40.129Z",
+    "address": {
+      "id": "fa32e3d1-58eb-4f2d-acd4-10998acd932d",
+      "state": "SP",
+      "city": "Praia Grande",
+      "zipCode": "12345678",
+      "number": "32",
+      "street": "Avenida p",
+      "district": "Bairro tal",
+      "complement": "Portão azul"
+    },
+    "providerCategories": [],
+    "schedules": [
+      {
+        "id": "e17ecdd5-79a8-4f38-8180-78129441e032",
+        "hour": "08:00:00",
+        "finishServiceHour": "20:00:00",
+        "serviceDate": "2020-12-05",
+        "createdAt": "2022-09-14T16:53:35.816Z",
+        "serviceDescription": "Arrumar o computador",
+        "value": "100.00",
+        "clientConfirmed": true,
+        "providerConfirmed": true
+      }
+    ],
+    "feedbacks": [],
+    "providerSchedule": []
+  },
+  "address": {
+    "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+    "state": "PE",
+    "city": "Recife",
+    "zipCode": "12345678",
+    "number": "22",
+    "street": "rua 1",
+    "district": "Teste",
+    "complement": null
+  }
 }
 ```
 
@@ -855,7 +1167,7 @@ Os campos que podem ser editados são os seguintes, não sendo necessário passa
 
 `DELETE /schedule/:scheduleId - FORMATO DA REQUISIÇÃO`
 
-Na requisição é necessário o TOKEN e só pode ser acessado pelos usuários envolvidos ou um adm
+Na requisição é necessário o TOKEN e só pode ser acessado pelo usuário e provider envolvidos ou um adm
 
 Essa rota não requer um corpo na requisição
 
@@ -871,13 +1183,253 @@ Essa rota não requer um corpo na requisição
 
 #
 
+<h2 align ='center'> Criando service </h2>
+
+#
+
+`POST /service- FORMATO DA REQUISIÇÃO`
+
+Rota precisa de um TOKEN
+
+```json
+{
+  "scheduleId": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b"
+}
+```
+
+### Caso esteja tudo ok a resposta será assim:
+
+`POST /service - FORMATO DA RESPOSTA - STATUS 201`
+
+```json
+{
+  "schedule": {
+    "id": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b",
+    "hour": "08:00:00",
+    "finishServiceHour": "20:00:00",
+    "serviceDate": "2020-12-05",
+    "createdAt": "2022-09-14T17:18:00.524Z",
+    "serviceDescription": "Arrumar o computador",
+    "value": "30.00",
+    "clientConfirmed": true,
+    "providerConfirmed": true,
+    "address": {
+      "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+      "state": "PE",
+      "city": "Recife",
+      "zipCode": "12345678",
+      "number": "22",
+      "street": "rua 1",
+      "district": "Teste",
+      "complement": null
+    }
+  },
+  "finalizedAt": null,
+  "id": "4a0c2d0e-0ddb-4ebb-8129-8d65398fc349",
+  "isServiceFinished": false,
+  "isServiceCanceled": false,
+  "clientFinished": false,
+  "providerFinished": false
+}
+```
+
+#
+
+<h2 align ='center'> Listando services </h2>
+
+#
+
+`GET /service - FORMATO DA REQUISIÇÃO`
+
+rota precisa de um TOKEN e não é necessário corpo da requisição
+
+### Caso esteja tudo ok a resposta será assim:
+
+`GET /service - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+  "id": "4a0c2d0e-0ddb-4ebb-8129-8d65398fc349",
+  "isServiceFinished": false,
+  "isServiceCanceled": false,
+  "finalizedAt": null,
+  "clientFinished": false,
+  "providerFinished": false,
+  "schedule": {
+    "id": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b",
+    "hour": "08:00:00",
+    "finishServiceHour": "20:00:00",
+    "serviceDate": "2020-12-05",
+    "createdAt": "2022-09-14T17:18:00.524Z",
+    "serviceDescription": "Arrumar o computador",
+    "value": "30.00",
+    "clientConfirmed": true,
+    "providerConfirmed": true,
+    "user": {
+      "id": "599b46b4-f4b7-48be-913b-9f034348c3ad",
+      "name": "Tales",
+      "email": "user@user.com",
+      "password": "$2a$10$XN9hw1UDhI2yJBNk8hNDP.TqFyYuX8td5KWcFbmiQcqX7rysfuBbm",
+      "phone": "88888888",
+      "imageUrl": null,
+      "isActive": true,
+      "isAdm": false,
+      "createdAt": "2022-09-14T13:51:45.732Z",
+      "updatedAt": "2022-09-14T13:51:45.732Z",
+      "schedules": [
+        {
+          "id": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b",
+          "hour": "08:00:00",
+          "finishServiceHour": "20:00:00",
+          "serviceDate": "2020-12-05",
+          "createdAt": "2022-09-14T17:18:00.524Z",
+          "serviceDescription": "Arrumar o computador",
+          "value": "30.00",
+          "clientConfirmed": true,
+          "providerConfirmed": true
+        }
+      ],
+      "feedbacks": []
+    },
+    "provider": {
+      "id": "90375916-6c93-4057-9204-19e8c4efd4ab",
+      "name": "Tales",
+      "email": "provider@provider.com",
+      "phone": "32098765456",
+      "imageUrl": null,
+      "isActive": true,
+      "isPremium": false,
+      "createdAt": "2022-09-14T16:51:40.129Z",
+      "updatedAt": "2022-09-14T16:51:40.129Z",
+      "address": {
+        "id": "fa32e3d1-58eb-4f2d-acd4-10998acd932d",
+        "state": "SP",
+        "city": "Praia Grande",
+        "zipCode": "12345678",
+        "number": "32",
+        "street": "Avenida p",
+        "district": "Bairro tal",
+        "complement": "Portão azul"
+      },
+      "providerCategories": [],
+      "schedules": [
+        {
+          "id": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b",
+          "hour": "08:00:00",
+          "finishServiceHour": "20:00:00",
+          "serviceDate": "2020-12-05",
+          "createdAt": "2022-09-14T17:18:00.524Z",
+          "serviceDescription": "Arrumar o computador",
+          "value": "30.00",
+          "clientConfirmed": true,
+          "providerConfirmed": true
+        }
+      ],
+      "feedbacks": [],
+      "providerSchedule": []
+    },
+    "address": {
+      "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+      "state": "PE",
+      "city": "Recife",
+      "zipCode": "12345678",
+      "number": "22",
+      "street": "rua 1",
+      "district": "Teste",
+      "complement": null
+    }
+  },
+  "feedbacks": []
+}
+```
+
+#
+
+<h2 align ='center'> Editando services </h2>
+
+#
+
+`PATH /service/:serviceId - FORMATO DA REQUISIÇÃO`
+
+#
+
+Rota precisa de um TOKEN e cada usuário só pode editar as informações referentes a ele mesmo
+
+```json
+{
+  "providerFinished": true,
+  "clientFinished": true,
+  "isServiceFinished": false,
+  "isServiceCanceled": false
+}
+```
+
+### Caso esteja tudo ok a resposta será assim:
+
+`PATH /service/:serviceId - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+  "id": "4a0c2d0e-0ddb-4ebb-8129-8d65398fc349",
+  "isServiceFinished": false,
+  "isServiceCanceled": false,
+  "finalizedAt": null,
+  "clientFinished": true,
+  "providerFinished": true,
+  "schedule": {
+    "id": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b",
+    "hour": "08:00:00",
+    "finishServiceHour": "20:00:00",
+    "serviceDate": "2020-12-05",
+    "createdAt": "2022-09-14T17:18:00.524Z",
+    "serviceDescription": "Arrumar o computador",
+    "value": "30.00",
+    "clientConfirmed": true,
+    "providerConfirmed": true,
+    "address": {
+      "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+      "state": "PE",
+      "city": "Recife",
+      "zipCode": "12345678",
+      "number": "22",
+      "street": "rua 1",
+      "district": "Teste",
+      "complement": null
+    }
+  },
+  "feedbacks": []
+}
+```
+
+#
+
+<h2 align ='center'> Deletando services </h2>
+
+#
+
+`DELETE /service/:serviceId - FORMATO DA REQUISIÇÃO`
+
+Esta rota precisa de um token e só pode ser acessada por um adm
+
+### Caso esteja tudo ok o retorno será assim:
+
+`DELETE /service/:serviceId - FORMATO DA RESPOSTA`
+
+```json
+{
+  "message": "Service deleted"
+}
+```
+
+#
+
 <h2 align ='center'> Criando feedbacks de clients </h2>
 
 #
 
 `POST /clientsFeedbacks - FORMATO DA REQUISIÇÃO`
 
-Na requisição é necessário o TOKEN e só pode ser acessado pelos usuários envolvidos ou um adm
+Na requisição é necessário o TOKEN e só pode ser acessado pelo usuário e provider envolvidos ou um adm
 
 O id do provider deverá ser passado na ciração do feedback
 
@@ -897,10 +1449,9 @@ Note não pode ser menor que zero ou maior que 5
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "note": "5",
-  "comment": "Ótimo cliente",
-  "userId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+  "note": 1,
+  "comment": "Muito bom",
+  "id": "ad0e831f-76de-4f9d-b770-5a92b5ee63b4"
 }
 ```
 
@@ -925,14 +1476,12 @@ Esta rota não tem corpo de requisição
   {
     "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
     "note": "5",
-    "comment": "Ótimo cliente",
-    "userId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+    "comment": "Ótimo cliente"
   },
   {
     "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
     "note": "5",
-    "comment": "Ótimo cliente",
-    "userId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+    "comment": "Ótimo cliente"
   }
 ]
 ```
@@ -1000,7 +1549,7 @@ o id do cliente deverá ser passado no service quando a tabela for criada
 
 ```json
 {
-  "note": "5",
+  "note": 5,
   "comment": "Ótimo profissional",
   "serviceId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
   "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
@@ -1013,11 +1562,38 @@ o id do cliente deverá ser passado no service quando a tabela for criada
 
 ```json
 {
-  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
   "note": "5",
   "comment": "Ótimo profissional",
-  "serviceId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+  "service": {
+    "id": "bbb89f82-46f0-4490-97e8-6884656e6b47",
+    "isServiceFinished": true,
+    "isServiceCanceled": false,
+    "finalizedAt": null,
+    "clientFinished": false,
+    "providerFinished": false,
+    "schedule": {
+      "id": "4b51ddec-5033-43b5-832f-443fd540d192",
+      "hour": "08:00:00",
+      "finishServiceHour": "20:00:00",
+      "serviceDate": "2020-12-05",
+      "createdAt": "2022-09-14T17:48:37.320Z",
+      "serviceDescription": "Arrumar o computador",
+      "value": "30.00",
+      "clientConfirmed": true,
+      "providerConfirmed": true,
+      "address": {
+        "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+        "state": "PE",
+        "city": "Recife",
+        "zipCode": "12345678",
+        "number": "22",
+        "street": "rua 1",
+        "district": "Teste",
+        "complement": null
+      }
+    },
+    "feedbacks": []
+  }
 }
 ```
 
@@ -1027,7 +1603,7 @@ o id do cliente deverá ser passado no service quando a tabela for criada
 
 #
 
-`GET /servicesFeedbacks - FORMATO DA REQUISIÇÃO`
+`GET /servicesFeedbacks/:providerId - FORMATO DA REQUISIÇÃO`
 
 Essa rota precisa de um TOKEN
 
@@ -1042,16 +1618,12 @@ Essa rota não tem corpo de requisição
   {
     "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
     "note": "5",
-    "comment": "Ótimo profissional",
-    "serviceId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+    "comment": "Ótimo profissional"
   },
   {
     "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
     "note": "5",
-    "comment": "Ótimo profissional",
-    "serviceId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-    "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+    "comment": "Ótimo profissional"
   }
 ]
 ```
@@ -1079,9 +1651,7 @@ Essa rota precisa de um TOKEN e só pode ser acessada por um adm
 {
   "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
   "note": "5",
-  "comment": "Ótimo profissional",
-  "serviceId": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
-  "providerId": "c110dbb6-beb9-4682-ab63-2c12a570d66b"
+  "comment": "Ótimo profissional"
 }
 ```
 
