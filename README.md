@@ -1674,3 +1674,123 @@ Essa rota não precisa de um corpo na requisição
   "message": "Service feedback deleted"
 }
 ```
+
+#
+
+<h2 align ='center'> Criando provider category </h2>
+
+#
+
+`POST /providers/categories - FORMATO DA REQUISIÇÃO`
+
+Esta rota precisa de TOKEN
+
+```json
+{
+  "categoryId": "90375916-6c93-4057-9204-19e8c4efd4ab"
+}
+```
+
+### Caso esteja tudo ok, a resposta será assim:
+
+`POST /providers/categories - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+  "id": "90375916-6c93-4057-9204-19e8c4efd4ab",
+  "name": "Tales Bonacina",
+  "email": "provider@provider.com",
+  "phone": "32098765456",
+  "imageUrl": null,
+  "isActive": true,
+  "isPremium": false,
+  "createdAt": "2022-09-14T16:51:40.129Z",
+  "updatedAt": "2022-09-14T21:11:58.633Z",
+  "address": {
+    "id": "fa32e3d1-58eb-4f2d-acd4-10998acd932d",
+    "state": "SP",
+    "city": "Praia Grande",
+    "zipCode": "12345678",
+    "number": "32",
+    "street": "Avenida p",
+    "district": "Bairro tal",
+    "complement": "Portão azul"
+  },
+  "providerCategories": [
+    {
+      "id": "c96dfb5c-47ce-402a-b6e6-3c7ee00b85e3",
+      "category": {
+        "id": "52ad5e87-fabb-46b0-81a2-74809393942a",
+        "name": "Categoria 2"
+      }
+    },
+    {
+      "id": "e91b7f9e-87f1-4969-a487-df9e46906dca",
+      "category": {
+        "id": "736116b2-e73b-4997-a753-a3256ed62ab1",
+        "name": "Categoria 3"
+      }
+    }
+  ],
+  "schedules": [
+    {
+      "id": "21d5c1f0-5b39-4aeb-837d-b4b237da3a3b",
+      "hour": "08:00:00",
+      "finishServiceHour": "20:00:00",
+      "serviceDate": "2020-12-05",
+      "createdAt": "2022-09-14T17:18:00.524Z",
+      "serviceDescription": "Arrumar o computador",
+      "value": "30.00",
+      "clientConfirmed": true,
+      "providerConfirmed": true,
+      "address": {
+        "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+        "state": "PE",
+        "city": "Recife",
+        "zipCode": "12345678",
+        "number": "22",
+        "street": "rua 1",
+        "district": "Teste",
+        "complement": null
+      }
+    },
+    {
+      "id": "4b51ddec-5033-43b5-832f-443fd540d192",
+      "hour": "08:00:00",
+      "finishServiceHour": "20:00:00",
+      "serviceDate": "2020-12-05",
+      "createdAt": "2022-09-14T17:48:37.320Z",
+      "serviceDescription": "Arrumar o computador",
+      "value": "30.00",
+      "clientConfirmed": true,
+      "providerConfirmed": true,
+      "address": {
+        "id": "84086e1a-abb9-4506-9ba5-a2bbb56d0256",
+        "state": "PE",
+        "city": "Recife",
+        "zipCode": "12345678",
+        "number": "22",
+        "street": "rua 1",
+        "district": "Teste",
+        "complement": null
+      }
+    }
+  ],
+  "feedbacks": [],
+  "providerSchedule": []
+}
+```
+
+`DELETE /providers/categories/:idDaCategoria - FORMATO DA REQUISIÇÃO`
+
+Essa rota não precisa de um corpo e precisa de um Token
+
+### Caso esteja tudo ok a resposta será assim:
+
+`DELETE /providers/categories/:idDaCategoria - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+  "message": "Category removed!"
+}
+```
