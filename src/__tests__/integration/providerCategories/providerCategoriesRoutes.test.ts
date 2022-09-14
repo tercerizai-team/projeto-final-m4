@@ -60,7 +60,6 @@ describe("/users", () => {
         const providerLoginInfo = await request(app).post("/login").send(mockedProvider)
         const providerCategoryToDelete = await request(app).get("/providers")
         const response = await request(app).delete(`/providers/categories/${providerCategoryToDelete.body[0].providerCategories[0].category.id}`).set("Authorization", `Bearer ${providerLoginInfo.body.token}`)
-        console.log(providerCategoryToDelete.body[0].providerCategories[0].category.id)
         
         expect(response.status).toBe(200)
 
