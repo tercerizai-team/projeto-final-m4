@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as yup from "yup";
 
 declare global {
     namespace Express {
@@ -6,6 +7,9 @@ declare global {
             userEmail: string,
             userId: string,
             userIsAdm: boolean
+        }
+        interface yup {
+            yup
         }
     }
 }
