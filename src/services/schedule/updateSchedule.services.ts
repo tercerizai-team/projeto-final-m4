@@ -30,6 +30,11 @@ const updateScheduleService = async (
     },
   });
 
+  if(!findSchedule){
+    throw new AppError("agendamento não encontrado", 404);
+    
+  }
+
   if(isAdm){
 
     const newScheule = {
