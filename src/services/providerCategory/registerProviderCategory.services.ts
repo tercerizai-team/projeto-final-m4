@@ -41,6 +41,8 @@ export const registerProviderCategoryService = async (categoryId: string, provid
 
     await providerCategoriesRepository.save(newProviderCategory)
 
-    return newProviderCategory
+    const providerUser = providersRepository.findOneBy({id: provider.id})
+
+    return providerUser
     
 }

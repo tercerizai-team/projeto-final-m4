@@ -19,4 +19,5 @@ export interface IUserEdit {
     email?: string
     password?: string
     phone?: string
+    isAdmBody?: boolean
 }
