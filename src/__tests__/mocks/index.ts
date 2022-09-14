@@ -185,6 +185,7 @@ export let mockedSchedule = {
   hour: "10:00",
   serviceDate: "2021-12-05",
   description: "Lavar o carro",
+  value: 50.0,
   providerId: "",
   addressId: ""
 
