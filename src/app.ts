@@ -13,21 +13,22 @@ import scheduleRoutes from "./routes/schedule.routes";
 import providerSchedulesRoutes from "./routes/providersSchedules.routes";
 import servicesRoutes from "./routes/service.routes";
 import providerCategoryRoutes from "./routes/providerCategory.routes";
+import cors from "cors"
 
 const app = express();
 app.use(express.json());
 
-app.use("/users", usersRoutes);
-app.use("/login", sessionRoutes);
-app.use("/usersFeedbacks", usersFeedbacksRoutes);
-app.use("/address", addressesRoutes);
-app.use("/providers", providersRoutes);
-app.use("/categories", categoriesRoutes);
-app.use("/schedule", scheduleRoutes);
-app.use("/servicesFeedbacks", servicesFeedbacksRoutes);
-app.use("/providerSchedule", providerSchedulesRoutes);
-app.use("/service", servicesRoutes);
-app.use("/providers", providerCategoryRoutes);
+app.use("/users", cors(), usersRoutes);
+app.use("/login", cors(), sessionRoutes);
+app.use("/usersFeedbacks", cors(), usersFeedbacksRoutes);
+app.use("/address", cors(), addressesRoutes);
+app.use("/providers", cors(), providersRoutes);
+app.use("/categories", cors(), categoriesRoutes);
+app.use("/schedule", cors(), scheduleRoutes);
+app.use("/servicesFeedbacks", cors(), servicesFeedbacksRoutes);
+app.use("/providerSchedule", cors(), providerSchedulesRoutes);
+app.use("/service", cors(), servicesRoutes);
+app.use("/providers", cors(), providerCategoryRoutes);
 
 app.use(handleErrorMiddleware);
 
