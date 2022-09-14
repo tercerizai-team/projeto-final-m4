@@ -10,7 +10,7 @@ const servicesFeedbacksRoutes = Router();
 
 servicesFeedbacksRoutes.post("", authUserMiddleware, createServiceFeedbackController)
 servicesFeedbacksRoutes.get("/:id", authUserMiddleware, listProviderFeedbacksController)
-servicesFeedbacksRoutes.post("/:id", authUserMiddleware, isAdmMiddleware, updateServiceFeedbackController)
+servicesFeedbacksRoutes.patch("/:id", authUserMiddleware, isAdmMiddleware, updateServiceFeedbackController)
 servicesFeedbacksRoutes.delete("/:id", authUserMiddleware, isAdmMiddleware, deleteServiceFeedbackController)
 
 export default servicesFeedbacksRoutes;

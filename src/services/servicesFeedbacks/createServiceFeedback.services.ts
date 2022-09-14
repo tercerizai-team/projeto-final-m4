@@ -16,14 +16,6 @@ const createServiceFeedbackService = async (
   const servicesRepository = AppDataSource.getRepository(Services);
   const usersRepository = AppDataSource.getRepository(Users);
 
-  const service = await servicesRepository.findOneBy({
-    id: serviceId,
-  });
-
-  if (!service) {
-    throw new AppError("Service not found", 404);
-  }
-
   const provider = await providersRepository.findOneBy({
     id: providerId,
   });
@@ -39,6 +31,26 @@ const createServiceFeedbackService = async (
 
   if (!user) {
     throw new AppError("User not found", 404);
+  }
+
+  const service = await servicesRepository.findOne({
+    where: {
+      id: serviceId,
+    },
+    relations: {
+      schedule: {
+        provider: true,
+        user: true,
+      },
+    },
+  });
+
+  if (!service) {
+    throw new AppError("Service not found", 404);
+  }
+
+  if(service.schedule.user.id !== userId){
+    throw new AppError("User not related to the schedule")
   }
 
   const userGivenFeedbacks = user.givedfeedbacks;

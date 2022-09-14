@@ -105,60 +105,60 @@ describe("/servicesFeedbacks", () => {
       expect(response.body).toHaveProperty("message");
     });
 
-  //   test("POST servicesFeedbacks - User não deve conseguir enviar um feedback a um usuário", async () => {
-  //     const response = await request(app)
-  //       .post("/servicesFeedbacks")
-  //       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-  //       .send({ ...mockedFeedback, admId });
+    test("POST servicesFeedbacks - Usuário não relacionado com a schedule não deve conseguir enviar um feedback ao um service", async () => {
+      const response = await request(app)
+        .post("/servicesFeedbacks")
+        .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        .send({ ...mockedFeedback, providerId, serviceId });
 
-  //     expect(response.status).toBe(404);
-  //     expect(response.body).toHaveProperty("message");
-  //   });
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty("message");
+    });
 
-  //   test("GET servicesFeedbacks - Um usuário logado deve ser capaz de ver os feedbacks de outro user", async () => {
-  //     const response = await request(app)
-  //       .get(`/servicesFeedbacks/${admId}`)
-  //       .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
+    test("GET servicesFeedbacks - Um usuário logado deve ser capaz de ver os feedbacks do provider", async () => {
+      const response = await request(app)
+        .get(`/servicesFeedbacks/${providerId}`)
+        .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
 
-  //     expect(response.status).toBe(200);
-  //     expect(response.body[0].note).toBe(mockedFeedback.note);
-  //   });
+      expect(response.status).toBe(200);
+      expect(response.body[0].note).toBe(mockedFeedback.note);
+    });
 
-  //   test("PATCH servicesFeedbacks - Um provider não pode editar um feedback", async () => {
-  //     const response = await request(app)
-  //       .patch(`/servicesFeedbacks/${feedbackId}`)
-  //       .set("Authorization", `Bearer ${providerLoginResponse.body.token}`)
-  //       .send(mockedUpdateFeedback);
+    test("PATCH servicesFeedbacks - Um usuário não pode editar um feedback", async () => {
+      const response = await request(app)
+        .patch(`/servicesFeedbacks/${feedbackId}`)
+        .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+        .send(mockedUpdateFeedback);
 
-  //     expect(response.status).toBe(401);
-  //     expect(response.body).toHaveProperty("message");
-  //   });
+      expect(response.status).toBe(401);
+      expect(response.body).toHaveProperty("message");
+    });
 
-  //   test("PATCH servicesFeedbacks - Um administrador deve poder editar um feedback", async () => {
-  //     const response = await request(app)
-  //       .patch(`/servicesFeedbacks/${feedbackId}`)
-  //       .set("Authorization", `Bearer ${admLoginResponse.body.token}`)
-  //       .send(mockedUpdateFeedback);
+    test("PATCH servicesFeedbacks - Um administrador deve poder editar um feedback", async () => {
+      const response = await request(app)
+        .patch(`/servicesFeedbacks/${feedbackId}`)
+        .set("Authorization", `Bearer ${admLoginResponse.body.token}`)
+        .send(mockedUpdateFeedback);
 
-  //     expect(response.status).toBe(200);
-  //     expect(response.body.note).toBe(mockedUpdateFeedback.note);
-  //   });
+      expect(response.status).toBe(200);
+      expect(response.body.note).toBe(mockedUpdateFeedback.note);
+    });
 
-  //   test("DELETE servicesFeedbacks - Um usuário ou provider não podem deletar um feedback", async () => {
-  //     const response = await request(app)
-  //       .delete(`/servicesFeedbacks/${feedbackId}`)
-  //       .set("Authorization", `Bearer ${providerLoginResponse.body.token}`);
+    test("DELETE servicesFeedbacks - Um usuário ou provider não podem deletar um feedback", async () => {
+      const response = await request(app)
+        .delete(`/servicesFeedbacks/${feedbackId}`)
+        .set("Authorization", `Bearer ${providerLoginResponse.body.token}`);
 
-  //     expect(response.status).toBe(401);
-  //     expect(response.body).toHaveProperty("message");
-  //   });
+      expect(response.status).toBe(401);
+      expect(response.body).toHaveProperty("message");
+    });
 
-  //   test("DELETE servicesFeedbacks - Um administrador deve poder deletar um feedback", async () => {
-  //     const response = await request(app)
-  //       .delete(`/servicesFeedbacks/${feedbackId}`)
-  //       .set("Authorization", `Bearer ${admLoginResponse.body.token}`);
+    test("DELETE servicesFeedbacks - Um administrador deve poder deletar um feedback", async () => {
+      const response = await request(app)
+        .delete(`/servicesFeedbacks/${feedbackId}`)
+        .set("Authorization", `Bearer ${admLoginResponse.body.token}`);
 
-  //     expect(response.status).toBe(200);
-  //     expect(response.body).toHaveProperty("message");
-  //   });
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty("message");
+    });
 });
