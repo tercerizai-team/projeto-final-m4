@@ -82,8 +82,6 @@ const updateScheduleService = async (
     newSchedule.providerConfirmed = providerConfirmed
   }
 
-  console.log(newSchedule)
-
   await scheduleRepository.update({ id }, newSchedule);
 
   const updatedSchedule = await scheduleRepository.findOne({
