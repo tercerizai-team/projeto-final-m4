@@ -3,13 +3,13 @@ import updateScheduleService from "../../services/schedule/updateSchedule.servic
 
 const updateScheduleController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { hour, serviceDate, serviceDescription, value, finishServiceHour } =
+  const { hour, serviceDate, serviceDescription, value, finishServiceHour, clientConfirmed, providerConfirmed } =
     req.body;
   const userId = req.userId;
   const isAdm = req.userIsAdm;
 
   const updatedSchedule = await updateScheduleService(
-    { hour, serviceDate, serviceDescription, value, finishServiceHour },
+    { hour, serviceDate, serviceDescription, value, finishServiceHour, clientConfirmed, providerConfirmed },
     id,
     userId,
     isAdm

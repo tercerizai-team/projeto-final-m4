@@ -10,14 +10,17 @@ const updateScheduleService = async (
     serviceDescription,
     value,
     finishServiceHour,
+    clientConfirmed,
+    providerConfirmed
   }: IScheduleUpdate,
   id: string,
   userId: string,
   isAdm: boolean
 ) => {
+
   const scheduleRepository = AppDataSource.getRepository(Schedules);
 
-  const findScheule = await scheduleRepository.findOne({
+  const findSchedule = await scheduleRepository.findOne({
     where: {
       id: id,
     },
@@ -27,19 +30,57 @@ const updateScheduleService = async (
     },
   });
 
-  if (findScheule?.user.id !== userId && isAdm === false) {
-    throw new AppError("You are not allowed", 400);
+  if(!findSchedule){
+    throw new AppError("agendamento não encontrado", 404);
+    
   }
 
-  const newScheule = {
+  if(isAdm){
+
+    const newScheule = {
+      hour,
+      serviceDate,
+      serviceDescription,
+      value,
+      finishServiceHour,
+      clientConfirmed,
+      providerConfirmed
+
+    };
+
+    await scheduleRepository.update({ id }, newScheule);
+
+    const updatedSchedule = await scheduleRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: {
+        user: true,
+        provider: true,
+      },
+    });
+  
+    return updatedSchedule;
+
+  }
+
+  let newSchedule:IScheduleUpdate = {
     hour,
     serviceDate,
     serviceDescription,
     value,
-    finishServiceHour,
+    finishServiceHour
   };
 
-  await scheduleRepository.update({ id }, newScheule);
+  if(userId === findSchedule?.user.id){
+    newSchedule.clientConfirmed = clientConfirmed
+  }
+
+  if(userId === findSchedule?.provider.id){
+    newSchedule.providerConfirmed = providerConfirmed
+  }
+
+  await scheduleRepository.update({ id }, newSchedule);
 
   const updatedSchedule = await scheduleRepository.findOne({
     where: {
