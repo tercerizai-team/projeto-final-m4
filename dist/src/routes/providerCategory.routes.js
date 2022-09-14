@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const deleteCategoryProvider_controller_1 = require("../controllers/providerCategory/deleteCategoryProvider.controller");
+const registerProviderCategory_controller_1 = require("../controllers/providerCategory/registerProviderCategory.controller");
+const authUser_middleware_1 = require("../middlewares/authUser.middleware");
+const providerCategoryRoutes = (0, express_1.Router)();
+providerCategoryRoutes.post("/categories", authUser_middleware_1.authUserMiddleware, registerProviderCategory_controller_1.registerProviderCategoryController);
+providerCategoryRoutes.delete("/categories/:id", authUser_middleware_1.authUserMiddleware, deleteCategoryProvider_controller_1.deleteProviderCategoryController);
+exports.default = providerCategoryRoutes;
