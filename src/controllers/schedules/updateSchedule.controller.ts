@@ -1,3 +1,4 @@
+import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import updateScheduleService from "../../services/schedule/updateSchedule.services";
 
@@ -15,7 +16,7 @@ const updateScheduleController = async (req: Request, res: Response) => {
     isAdm
   );
 
-  return res.status(200).send(updatedSchedule);
+  return res.status(200).send(instanceToPlain(updatedSchedule));
 };
 
 export default updateScheduleController;
