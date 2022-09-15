@@ -44,7 +44,7 @@ export const loginUserService = async ({ email, password }: IUserLogin) => {
     }
   );
 
-  const returnObj = {token, isProvider}
+  const returnObj = {userId: account.id, token, isProvider}
 
   return returnObj;
 
