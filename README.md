@@ -5,11 +5,11 @@ Api construida utilizando as tecnologias adquiridas no módulo 4 do curso fullSt
 
 # Endpoints
 
-O JSON para utilizar no Insomnia é este aqui ->
+O JSON para utilizar no Insomnia pode ser encontrado aqui-> https://drive.google.com/file/d/1cEKrWyeovlcE4SZs7TuI0qfAT6j8-Thi/view?usp=sharing
 
-A API tem um total de XXX endpoints
+A API tem um total de 45 endpoints
 
-A url base da API é:
+A url base da API é: https://tercerizai-api.herokuapp.com
 
 # Rotas
 
@@ -38,7 +38,9 @@ isAdm
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDcxODM3NzYsImV4cCI6MTYwNzQ0Mjk3Niwic3ViIjoiMmE3NWUxMmQtZmQxYy00ODFkLWJhODgtNGQ4YjE3MTAzYjJhIn0.UY67X23mPYAAzT43uFWZDHPUakd2STo5w4AuOcppkyQ"
+  "userId": "374d5c43-7445-4559-beed-1dbdd0d1c5bb",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDcxODM3NzYsImV4cCI6MTYwNzQ0Mjk3Niwic3ViIjoiMmE3NWUxMmQtZmQxYy00ODFkLWJhODgtNGQ4YjE3MTAzYjJhIn0.UY67X23mPYAAzT43uFWZDHPUakd2STo5w4AuOcppkyQ",
+  "isProvider": false
 }
 ```
 
