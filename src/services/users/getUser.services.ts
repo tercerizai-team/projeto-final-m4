@@ -4,11 +4,12 @@ import AppError from "../../errors/AppError";
 
 export const getUserService = async (id: string) => {
     const userRepository = AppDataSource.getRepository(Users)
-    const user = await userRepository.findOneBy({id: id})
+    const usersAddresses = await userRepository.find({relations: {addresses: true}})
+    const userAddresses = await usersAddresses.filter(userAddress => userAddress.addresses.filter(address => address.id === id))
 
-    if (!user) {
+    if (!usersAddresses) {
         throw new AppError('User not found', 404)
     }
 
-    return user
+    return userAddresses
 }
