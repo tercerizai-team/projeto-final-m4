@@ -13,6 +13,7 @@ export const createProviderService = async ({
   password,
   phone,
   address,
+  imageUrl
 }: IProviderRequest) => {
   const providersRepository = AppDataSource.getRepository(Providers);
   const addressRepository = AppDataSource.getRepository(Addresses);
@@ -64,6 +65,7 @@ export const createProviderService = async ({
   newProvider.isPremium = false;
   newProvider.isActive = true;
   newProvider.address = newAddress;
+  newProvider.imageUrl = imageUrl
 
   providersRepository.create(newProvider);
   await providersRepository.save(newProvider);
