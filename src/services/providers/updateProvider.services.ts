@@ -62,6 +62,7 @@ export const updateProviderService = async (
     email: providerData.email,
     name: providerData.name,
     phone: providerData.phone,
+    imageUrl: providerData.imageUrl,
     password: providerData.password
       ? await hash(providerData.password, 10)
       : provider.password,
