@@ -13,6 +13,7 @@ export interface IProviderRequest {
   email: string;
   password: string;
   phone: string;
+  imageUrl: string;
   address: adress;
 }
 
