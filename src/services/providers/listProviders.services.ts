@@ -6,5 +6,9 @@ export const listProvidersService = async () => {
     const providerRepository = AppDataSource.getRepository(Providers)
     const providers: any = await providerRepository.find()
 
+    providers.forEach((provider: any) => {
+        delete provider.address
+    })
+    
     return providers
 }
